@@ -1,4 +1,4 @@
-package canlor.tp1robots;
+package canlor.tp1robots.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

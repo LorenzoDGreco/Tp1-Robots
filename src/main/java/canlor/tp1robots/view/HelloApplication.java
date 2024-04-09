@@ -1,4 +1,4 @@
-package canlor.tp1robots;
+package canlor.tp1robots.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

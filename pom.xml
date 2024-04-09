@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>canlor.tp1robots/canlor.tp1robots.HelloApplication</mainClass>
+              <mainClass>canlor.tp1robots/canlor.tp1robots.view.HelloApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
