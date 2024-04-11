@@ -2,7 +2,6 @@ package canlor.tp1robots.module.entidades;
 
 public class Entidad {
     private int[] posicion;
-    private
     int tipoEntidad; //0 jugador 1 robot1 2 robot2 3 explosion
 
     public Entidad(int x, int y, int tipoEntidad) {
@@ -28,4 +27,39 @@ public class Entidad {
     public int getTipoEntidad() {
         return tipoEntidad;
     }
+
+    public void moverse(int x, int y) {
+        if (getX() == x) {
+            if (getY() < y) {
+                setY(getY() + 1);
+            } else {
+                setY(getY() - 1);
+            }
+        } else if (getY() == y) {
+            if (getX() < x) {
+                setX(getX() + 1);
+            } else {
+                setX(getX() - 1);
+            }
+        } else {
+            if (getY() > y && getX() < x) { // esta arriba a la izq
+                setY(getY() + 1);
+                setX(getX() - 1);
+            } else if (getY() > y && getX() > x) { // abajo a la der
+                setY(getY() + 1);
+                setX(getX() + 1);
+            } else if (getY() < y && getX() < x) {
+                setY(getY() - 1);
+                setX(getX() - 1);
+            } else if (getY() < y && getX() > x) {
+                setY(getY() - 1);
+                setX(getX() + 1);
+            }
+        }
+    }
+
+    public boolean huboColision(int x, int y) {
+        return (getX() == x && getY() == y);
+    }
 }
+

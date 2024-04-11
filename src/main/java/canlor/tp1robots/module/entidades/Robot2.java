@@ -1,18 +1,15 @@
 package canlor.tp1robots.module.entidades;
 
-public class Robot2 extends Enemigo {
+public class Robot2 extends Entidad {
 
     public Robot2(int x, int y) {
         super(x, y, 2);
     }
 
     @Override
-    void MoverseAlJugador() {
-
+    public void moverse(int x, int y) {
+        moverse(x, y);
+        moverse(x, y);
     }
 
-    @Override
-    public boolean Colision(int x, int y) {
-        return super.Colision(x, y);
-    }
 }
