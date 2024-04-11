@@ -12,12 +12,12 @@ public class Juego {
     private Jugador jugador;
     private int nivel = 0;
 
-    public Juego(int filasTotales, int columnasTotales) {
+    public Juego(int filas, int columnas) {
         cantRobotsInicial = new int[]{4,2};
-        dimension = new int[]{filasTotales, columnasTotales}; // a checkear
+        dimension = new int[]{filas, columnas}; // a checkear
         nivel = 1;
         enemigos = new ArrayList<>();
-        jugador = new Jugador(filasTotales/2, columnasTotales/2);
+        jugador = new Jugador(filas/2, columnas/2);
     }
 
     public int[] getDimension() {
@@ -40,21 +40,20 @@ public class Juego {
     }
 
     public boolean TerminoPartida() {
-        //Perder Partida
         if (jugador.isVivo()) {
-            return false;
+            return false; // el jugador esta vivo: no termino la partida
         }
         //Ganar partida
-        boolean aux = true;
+        boolean gano = true;
         for (Entidad enemigo : enemigos) {
             if (enemigo.getTipoEntidad() == 1 || enemigo.getTipoEntidad() == 2) {
-                aux = false;
+                gano = false; // todavia quedan robots, todavia no gano
             }
         }
-        if (aux) {
+        if (gano) {
             nivel +=1;
         }
-        return aux;
+        return gano;
     }
 
     public int[] PosicionAleatoria(){
@@ -121,5 +120,9 @@ public class Juego {
     public void Redimensionar(int x, int y) {
         dimension[0] = x;
         dimension[1] = y;
+    }
+
+    public ArrayList<Entidad> getEnemigos() {
+        return enemigos;
     }
 }

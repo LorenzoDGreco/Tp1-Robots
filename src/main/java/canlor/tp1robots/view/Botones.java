@@ -3,8 +3,6 @@ package canlor.tp1robots.view;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.geometry.Pos;
 
 
 public class Botones {
@@ -14,11 +12,15 @@ public class Botones {
     private Button TpSeguro;
     private Button Esperar;
 
-    public Botones(GridPane botones) {
-        gb = botones;
+    public Botones() {
+        gb = new GridPane();
+
+        inicializarBotones();
     }
 
-    public void inicializarBotones() {
+    private void inicializarBotones() {
+        gb = new GridPane();
+
         ColumnConstraints column1 = new ColumnConstraints();
         column1.setPercentWidth(33.33);
         ColumnConstraints column2 = new ColumnConstraints();
@@ -27,9 +29,9 @@ public class Botones {
         column3.setPercentWidth(33.33);
         gb.getColumnConstraints().addAll(column1, column2, column3);
 
-        TpAleatorio = new Button("Teletransportarse Aleatoriamente");
-        TpSeguro = new Button("Teletransporte Seguro");
-        Esperar = new Button("Esperar a los Robots");
+        TpAleatorio = new Button("Teleport Randomly");
+        TpSeguro = new Button("Teleport Safely");
+        Esperar = new Button("Wait for Robots");
 
         TpAleatorio.setMinHeight(120);
         TpSeguro.setMinHeight(120);
@@ -42,6 +44,10 @@ public class Botones {
         gb.add(TpAleatorio, 0, 0);
         gb.add(TpSeguro, 1, 0);
         gb.add(Esperar, 2, 0);
+    }
+
+    public GridPane getBotones() {
+        return gb;
     }
 }
 

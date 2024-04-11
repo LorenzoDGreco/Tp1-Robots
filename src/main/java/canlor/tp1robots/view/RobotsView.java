@@ -1,38 +1,31 @@
 package canlor.tp1robots.view;
 
-import javafx.application.Application;
+import canlor.tp1robots.module.juego.Juego;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class RobotsView extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
+public class RobotsView {
+
+    public RobotsView(Stage stage, Juego modelo, int filas, int columnas) throws IOException {
         stage.setTitle("Robots");
 
         VBox root = new VBox();
 
-        GridPane tablero = new GridPane();
+        Menu menu = new Menu();
+        root.getChildren().add(menu.getMenuBar());
 
-        Tablero tableroInstance = new Tablero(tablero);
-        tableroInstance.inicializarTablero(30,45);
+        Tablero tablero = new Tablero(30,45);
+        root.getChildren().add(tablero.getTablero());
 
-        GridPane botones = new GridPane();
-        Botones botonesInstance = new Botones(botones);
-        botonesInstance.inicializarBotones();
+        Botones botones = new Botones();
+        root.getChildren().add(botones.getBotones());
 
-        root.getChildren().addAll(tablero, botones);
-
-        Scene scene = new Scene(root, 720, 600);
+        Scene scene = new Scene(root, 720, 625);
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
