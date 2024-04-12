@@ -48,4 +48,8 @@ public class RobotsView {
         tablero.actualizarPosiciones();
         botones.actualizarBoton();
     }
+
+    public void crearEventos() {
+
+    }
 }

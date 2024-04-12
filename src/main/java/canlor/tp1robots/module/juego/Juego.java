@@ -36,7 +36,7 @@ public class Juego {
     }
 
     public boolean TerminoPartida() {
-        if (jugador.isVivo()) {
+        if (jugador.isActivo()) {
             return false; // el jugador esta vivo: no termino la partida
         }
         //Ganar partida
@@ -61,46 +61,55 @@ public class Juego {
         return new int[]{X, Y};
     }
 
-    public void Mover(int x, int y) {
-        jugador.moverse(x, y);
-        for (Entidad entidad : enemigos) {
-            entidad.moverse(x, y);
-            /*if (entidad.getTipoEntidad() == 2) {
-                array. add entidad
-            }*/
-        }
-        // si es robot2 se mueve segun colision
-        /*Colision()
-        for ( x array) {
-            if enemigos.contains(x) {
-                x movete
-            }
-        }*/
+    public void mover(int x, int y) {
+        moverJugador(x, y);
+        moverRobots();
     }
 
+    private void moverJugador(int x, int y) {
+        jugador.moverse(x, y);
+    }
 
-    public void Colision() {
+    private void moverRobots() {
+        ArrayList<Entidad> arrayAux = new ArrayList<>();
+        for (Entidad entidad : enemigos) {
+            entidad.moverse(jugador.getX(), jugador.getY());
+            if (entidad.getTipoEntidad() == 2) {
+                arrayAux.add(entidad);
+            }
+        }
+        // si es robot2 se mueve segun colision
+        Colision();
+        for (Entidad enemigos : arrayAux) {
+            if (this.enemigos.contains(enemigos)) {
+                enemigos.moverse(jugador.getX(), jugador.getY());
+            }
+        }
+        Colision();
+    }
+
+    private void Colision() {
         for (Entidad enemigo1 : enemigos) {
             if (jugador.huboColision(enemigo1.getX(), enemigo1.getY())) {
-                jugador.setVivo(false);
+                jugador.setActivo(false);
             }
-
             for (Entidad enemigo2 : enemigos) {
                 if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY())) {
-                    if (!(enemigo2 instanceof Explosion) || !(enemigo1 instanceof Explosion)) {
-                        enemigos.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
-                        enemigos.remove(enemigo1);
-                        enemigos.remove(enemigo2);
-                    }
+                    enemigos.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
+                    enemigos.remove(enemigo1);
+                    enemigos.remove(enemigo2);
                 }
             }
         }
     }
 
+
+
     public void TpAleatorio() {
         int[] coords = PosicionAleatoria();
-        jugador.setX(coords[0]);
         jugador.setY(coords[1]);
+        jugador.setX(coords[0]);
+        moverRobots();
     }
 
     private boolean HayTpSeguro() {
@@ -112,11 +121,12 @@ public class Juego {
             jugador.setX(x);
             jugador.setY(y);
             jugador.setTpSeguros(jugador.getTpSeguros()-1);
+            moverRobots();
         }
 
     }
 
-    public void Redimensionar(int x, int y) {
+    public void redimensionar(int x, int y) {
         dimension[0] = x;
         dimension[1] = y;
     }

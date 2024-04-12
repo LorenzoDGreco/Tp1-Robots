@@ -1,6 +1,8 @@
 package canlor.tp1robots.view;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,10 +14,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 public class Menu {
     private MenuBar menuBar;
+    private Button aceptar;
 
     public Menu() {
         menuBar = new MenuBar();
@@ -60,11 +61,7 @@ public class Menu {
 
             HBox botones = new HBox();
 
-            Button aceptar = new Button("Aceptar");
-            aceptar.setOnAction(event -> {
-//              redimensionar(dimension)
-                stage.close();
-            });
+            aceptar = new Button("Aceptar");
 
             Button cancelar = new Button("Cancelar");
             cancelar.setOnAction(event -> stage.close());
@@ -86,6 +83,10 @@ public class Menu {
         menu.getItems().addAll(restartItem, dimensionItem, salirItem);
 
         return menu;
+    }
+
+    private void crearEvento(EventHandler<ActionEvent> event) {
+        aceptar.setOnAction(event);
     }
 
     public MenuBar getMenuBar() {
