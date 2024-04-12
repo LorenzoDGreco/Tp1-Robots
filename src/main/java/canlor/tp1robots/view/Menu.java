@@ -4,11 +4,15 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 
 public class Menu {
     private MenuBar menuBar;
@@ -16,6 +20,7 @@ public class Menu {
     public Menu() {
         menuBar = new MenuBar();
         menuBar.setUseSystemMenuBar(true);
+        menuBar.setBackground(Background.fill(Color.rgb(243, 243, 243)));
 
         javafx.scene.control.Menu menu = createMenu();
         menuBar.getMenus().add(menu);
@@ -57,7 +62,7 @@ public class Menu {
 
             Button aceptar = new Button("Aceptar");
             aceptar.setOnAction(event -> {
-//                ;redimensionar(dimension)
+//              redimensionar(dimension)
                 stage.close();
             });
 

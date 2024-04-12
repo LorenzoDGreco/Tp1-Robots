@@ -1,5 +1,6 @@
 package canlor.tp1robots.view;
 
+import canlor.tp1robots.module.juego.Juego;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -12,8 +13,11 @@ public class Botones {
     private Button TpSeguro;
     private Button Esperar;
 
-    public Botones() {
+    private Juego modelo;
+
+    public Botones(Juego modelo) {
         gb = new GridPane();
+        this.modelo = modelo;
 
         inicializarBotones();
     }
@@ -30,7 +34,7 @@ public class Botones {
         gb.getColumnConstraints().addAll(column1, column2, column3);
 
         TpAleatorio = new Button("Teleport Randomly");
-        TpSeguro = new Button("Teleport Safely");
+        TpSeguro = new Button("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
         Esperar = new Button("Wait for Robots");
 
         TpAleatorio.setMinHeight(120);
@@ -48,6 +52,10 @@ public class Botones {
 
     public GridPane getBotones() {
         return gb;
+    }
+
+    public void actualizarBoton(){
+        TpSeguro.setText("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
     }
 }
 

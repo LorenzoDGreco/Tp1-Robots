@@ -20,11 +20,7 @@ public class Juego {
         jugador = new Jugador(filas/2, columnas/2);
     }
 
-    public int[] getDimension() {
-        return dimension;
-    }
-
-    public void Iniciar() {
+    public void iniciar() {
         jugador.setX(dimension[0]/2);
         jugador.setY(dimension[1]/2);
 
@@ -59,8 +55,8 @@ public class Juego {
     public int[] PosicionAleatoria(){
         Random rand = new Random();
 
-        int X = rand.nextInt(dimension[0] + 1);
-        int Y = rand.nextInt(dimension[1] + 1);
+        int X = rand.nextInt(dimension[1]);
+        int Y = rand.nextInt(dimension[0]);
 
         return new int[]{X, Y};
     }
@@ -107,14 +103,17 @@ public class Juego {
         jugador.setY(coords[1]);
     }
 
-    public boolean HayTpSeguro() {
+    private boolean HayTpSeguro() {
         return jugador.getTpSeguros() > 0;
     }
 
     public void TpSeguro(int x, int y) {
-        jugador.setX(x);
-        jugador.setY(y);
-        jugador.setTpSeguros(jugador.getTpSeguros()-1);
+        if (HayTpSeguro()) {
+            jugador.setX(x);
+            jugador.setY(y);
+            jugador.setTpSeguros(jugador.getTpSeguros()-1);
+        }
+
     }
 
     public void Redimensionar(int x, int y) {
@@ -124,5 +123,17 @@ public class Juego {
 
     public ArrayList<Entidad> getEnemigos() {
         return enemigos;
+    }
+
+    public int getTpSeguros() {
+        return jugador.getTpSeguros();
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public int[] getDimension() {
+        return dimension;
     }
 }

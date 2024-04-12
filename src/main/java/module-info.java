@@ -1,6 +1,7 @@
 module canlor.tp1robots {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens canlor.tp1robots to javafx.fxml;
