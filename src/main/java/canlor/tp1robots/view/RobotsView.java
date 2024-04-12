@@ -1,12 +1,15 @@
 package canlor.tp1robots.view;
 
 import canlor.tp1robots.module.juego.Juego;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RobotsView {
     private VBox root;
@@ -49,7 +52,11 @@ public class RobotsView {
         botones.actualizarBoton();
     }
 
-    public void crearEventos() {
+    public void crearEventos(ArrayList<EventHandler<ActionEvent>> ListEvents) {
+        //menu.crearEvento();
+    }
 
+    public String[] getRedimensiones() {
+        return menu.getRedimensiones();
     }
 }

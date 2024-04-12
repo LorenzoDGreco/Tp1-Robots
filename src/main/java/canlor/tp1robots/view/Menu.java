@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 public class Menu {
     private MenuBar menuBar;
     private Button aceptar;
+    private TextField filas;
+    private TextField columnas;
 
     public Menu() {
         menuBar = new MenuBar();
@@ -48,15 +50,15 @@ public class Menu {
             HBox campos = new HBox();
 
             campos.setAlignment(Pos.CENTER);
-            TextField filas = new TextField();
+            filas = new TextField();
             filas.setPrefWidth(40);
 
-            TextField columnas = new TextField();
+            columnas = new TextField();
             columnas.setPrefWidth(40);
-            Text equis = new Text(" x ");
-            equis.setFont(Font.font(15));
+            Text X = new Text(" x ");
+            X.setFont(Font.font(15));
 
-            campos.getChildren().addAll(filas, equis, columnas);
+            campos.getChildren().addAll(filas, X, columnas);
             // --------------------------------------
 
             HBox botones = new HBox();
@@ -85,11 +87,15 @@ public class Menu {
         return menu;
     }
 
-    private void crearEvento(EventHandler<ActionEvent> event) {
+    public void crearEvento(EventHandler<ActionEvent> event) {
         aceptar.setOnAction(event);
     }
 
     public MenuBar getMenuBar() {
         return menuBar;
+    }
+
+    public String[] getRedimensiones() {
+        return new String[]{filas.getText(), columnas.getText()};
     }
 }
