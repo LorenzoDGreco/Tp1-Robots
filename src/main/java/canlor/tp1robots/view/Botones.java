@@ -1,6 +1,7 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.module.juego.Juego;
+import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -9,11 +10,11 @@ import javafx.scene.layout.GridPane;
 public class Botones {
 
     private GridPane gb;
-    private Button TpAleatorio;
-    private Button TpSeguro;
-    private Button Esperar;
+    private Button tpAleatorio;
+    private Button tpSeguro;
+    private Button esperar;
 
-    private Juego modelo;
+    private final Juego modelo;
 
     public Botones(Juego modelo) {
         gb = new GridPane();
@@ -33,21 +34,21 @@ public class Botones {
         column3.setPercentWidth(33.33);
         gb.getColumnConstraints().addAll(column1, column2, column3);
 
-        TpAleatorio = new Button("Teleport Randomly");
-        TpSeguro = new Button("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
-        Esperar = new Button("Wait for Robots");
+        tpAleatorio = new Button("Teleport Randomly");
+        tpSeguro = new Button("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
+        esperar = new Button("Wait for Robots");
 
-        TpAleatorio.setMinHeight(120);
-        TpSeguro.setMinHeight(120);
-        Esperar.setMinHeight(120);
+        tpAleatorio.setMinHeight(120);
+        tpSeguro.setMinHeight(120);
+        esperar.setMinHeight(120);
 
-        TpAleatorio.setMaxWidth(Double.MAX_VALUE);
-        TpSeguro.setMaxWidth(Double.MAX_VALUE);
-        Esperar.setMaxWidth(Double.MAX_VALUE);
+        tpAleatorio.setMaxWidth(Double.MAX_VALUE);
+        tpSeguro.setMaxWidth(Double.MAX_VALUE);
+        esperar.setMaxWidth(Double.MAX_VALUE);
 
-        gb.add(TpAleatorio, 0, 0);
-        gb.add(TpSeguro, 1, 0);
-        gb.add(Esperar, 2, 0);
+        gb.add(tpAleatorio, 0, 0);
+        gb.add(tpSeguro, 1, 0);
+        gb.add(esperar, 2, 0);
     }
 
     public GridPane getBotones() {
@@ -55,7 +56,13 @@ public class Botones {
     }
 
     public void actualizarBoton(){
-        TpSeguro.setText("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
+        tpSeguro.setText("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
+    }
+
+    public void crearEvento(Eventos eventos) {
+        tpAleatorio.setOnAction(eventos.getTpAleatorio());
+        tpSeguro.setOnAction(eventos.getTpSeguro());
+        esperar.setOnAction(eventos.getEsperar());
     }
 }
 

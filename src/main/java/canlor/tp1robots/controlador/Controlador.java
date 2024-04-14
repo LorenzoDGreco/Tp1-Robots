@@ -1,17 +1,13 @@
 package canlor.tp1robots.controlador;
 
-import canlor.tp1robots.module.juego.Juego;
+import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
-import java.util.ArrayList;
 
 public class Controlador {
 
     private final Juego modelo;
     private final RobotsView vista;
-    private ArrayList<EventHandler<ActionEvent>> eventos;
+    private Eventos eventos;
 
     public Controlador(Juego modelo, RobotsView vista){
         this.modelo = modelo;
@@ -22,27 +18,49 @@ public class Controlador {
         modelo.iniciar();
         vista.actualizar();
 
-        Eventos eventos = new Eventos();
+        eventos = new Eventos();
 
-        eventos.setRedimensionar(event -> {
+        eventos.setRedimensionar(_ -> {
             String[] espacio = vista.getRedimensiones();
-            modelo.redimensionar(Integer.parseInt(espacio[0]), Integer.parseInt(espacio[1]));
-        });
+            try {
+                int valor1 = Integer.parseInt(espacio[0]);
+                int valor2 = Integer.parseInt(espacio[1]);
 
-        eventos.setTpAleatorio(event -> {
-                modelo.TpAleatorio();
-        });
-
-        /*EventHandler<ActionEvent> EventoTpSeguro = new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                modelo.TpSeguro();
+                if (valor1 >= 25 && valor2 >= 25) {
+                    modelo.redimensionar(Integer.parseInt(espacio[0]), Integer.parseInt(espacio[1]));
+                    modelo.reiniciar();
+                    vista.redimensionar();
+                } else {
+                    vista.setErrorLabel("Ingrese numeros >=25");
+                }
+            } catch (NumberFormatException e) {
+                vista.setErrorLabel("Ingrese valores numéricos");
             }
-        };*/
+
+        });
+
+        eventos.setTpAleatorio(_ -> {
+            modelo.TpAleatorio();
+            vista.actualizar();
+        });
+
+        /*eventos.setTpSeguro(event -> {
+            modelo.TpSeguro();
+            vista.actualizar();
+        });*/
+
+        eventos.setEsperar(_ -> {
+            modelo.mover(modelo.getJugador().getX(), modelo.getJugador().getY());
+            vista.actualizar();
+        });
+
+        eventos.setReiniciar(_ -> {
+            modelo.reiniciar();
+            vista.actualizar();
+        });
 
 
-
+        vista.crearEventos(eventos);
     }
 
     public void moverPersonaje() {

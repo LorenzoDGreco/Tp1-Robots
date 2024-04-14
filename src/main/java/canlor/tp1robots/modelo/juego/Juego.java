@@ -1,16 +1,15 @@
-package canlor.tp1robots.module.juego;
+package canlor.tp1robots.modelo.juego;
 
-import canlor.tp1robots.module.entidades.*;
+import canlor.tp1robots.modelo.entidades.*;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Juego {
     final int[] cantRobotsInicial;
-    private int[] dimension;
+    private final int[] dimension;
     private ArrayList<Entidad> enemigos;
-    private Jugador jugador;
-    private int nivel = 0;
+    private final Jugador jugador;
+    private int nivel;
 
     public Juego(int filas, int columnas) {
         cantRobotsInicial = new int[]{4,2};
@@ -20,18 +19,26 @@ public class Juego {
         jugador = new Jugador(filas/2, columnas/2);
     }
 
+    public void reiniciar() {
+        nivel = 1;
+        enemigos = new ArrayList<>();
+        jugador.setTpSeguros(1);
+        iniciar();
+    }
+
     public void iniciar() {
         jugador.setX(dimension[0]/2);
         jugador.setY(dimension[1]/2);
+        jugador.setActivo(true);
 
         for (int i = 0; i < cantRobotsInicial[0] * nivel; i++) {
             int[] coords = PosicionAleatoria();
-            enemigos.add(new Robot1(coords[0], coords[1]));
+            enemigos.add(new Robot1(coords[1], coords[0]));
         }
 
         for (int i = 0; i < cantRobotsInicial[1] * nivel; i++) {
             int[] coords = PosicionAleatoria();
-            enemigos.add(new Robot2(coords[0], coords[1]));
+            enemigos.add(new Robot2(coords[1], coords[0]));
         }
     }
 
@@ -44,6 +51,7 @@ public class Juego {
         for (Entidad enemigo : enemigos) {
             if (enemigo.getTipoEntidad() == 1 || enemigo.getTipoEntidad() == 2) {
                 gano = false; // todavia quedan robots, todavia no gano
+                break;
             }
         }
         if (gano) {
@@ -67,48 +75,60 @@ public class Juego {
     }
 
     private void moverJugador(int x, int y) {
-        jugador.moverse(x, y);
+        jugador.moverse(x, y, enemigos);
     }
 
     private void moverRobots() {
-        ArrayList<Entidad> arrayAux = new ArrayList<>();
+        System.out.println(enemigos);
         for (Entidad entidad : enemigos) {
-            entidad.moverse(jugador.getX(), jugador.getY());
-            if (entidad.getTipoEntidad() == 2) {
-                arrayAux.add(entidad);
+            if (entidad.isActivo()){
+                entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
             }
-        }
-        // si es robot2 se mueve segun colision
-        Colision();
-        for (Entidad enemigos : arrayAux) {
-            if (this.enemigos.contains(enemigos)) {
-                enemigos.moverse(jugador.getX(), jugador.getY());
-            }
+
         }
         Colision();
     }
 
     private void Colision() {
-        for (Entidad enemigo1 : enemigos) {
+        List<Entidad> entidadesAQuitar = new ArrayList<>();
+        List<Explosion> explosionesAñadir = new ArrayList<>();
+        Set<String> posicionesExplosiones = new HashSet<>();
+
+        for (int i = 0; i < enemigos.size(); i++) {
+            Entidad enemigo1 = enemigos.get(i);
+
             if (jugador.huboColision(enemigo1.getX(), enemigo1.getY())) {
                 jugador.setActivo(false);
             }
-            for (Entidad enemigo2 : enemigos) {
-                if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY())) {
-                    enemigos.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
-                    enemigos.remove(enemigo1);
-                    enemigos.remove(enemigo2);
+
+            for (int j = i + 1; j < enemigos.size(); j++) {
+                Entidad enemigo2 = enemigos.get(j);
+
+                if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY()) && (enemigo1.isActivo() && enemigo2.isActivo())) {
+                    String posicionExplosion = enemigo1.getX() + "," + enemigo1.getY();
+
+                    if (!posicionesExplosiones.contains(posicionExplosion)) {
+
+                        entidadesAQuitar.add(enemigo1);
+                        entidadesAQuitar.add(enemigo2);
+
+                        explosionesAñadir.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
+
+                        posicionesExplosiones.add(posicionExplosion);
+                    }
                 }
             }
         }
-    }
 
+        enemigos.removeAll(entidadesAQuitar);
+        enemigos.addAll(explosionesAñadir);
+    }
 
 
     public void TpAleatorio() {
         int[] coords = PosicionAleatoria();
-        jugador.setY(coords[1]);
-        jugador.setX(coords[0]);
+        jugador.setY(coords[0]);
+        jugador.setX(coords[1]);
         moverRobots();
     }
 
@@ -145,5 +165,11 @@ public class Juego {
 
     public int[] getDimension() {
         return dimension;
+    }
+
+    public int[] getTamanioTotal() {
+        int width = 16 + dimension[1] * 16;
+        int height = 20 + 165 + (dimension[0] * 16);
+        return new int[]{width, height};
     }
 }

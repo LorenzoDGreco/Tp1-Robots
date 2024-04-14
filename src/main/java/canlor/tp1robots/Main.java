@@ -1,7 +1,7 @@
 package canlor.tp1robots;
 
 import canlor.tp1robots.controlador.Controlador;
-import canlor.tp1robots.module.juego.Juego;
+import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
 import javafx.application.Application;
 import javafx.stage.Stage;

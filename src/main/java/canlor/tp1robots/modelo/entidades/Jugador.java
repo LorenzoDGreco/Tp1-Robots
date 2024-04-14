@@ -1,7 +1,6 @@
-package canlor.tp1robots.module.entidades;
+package canlor.tp1robots.modelo.entidades;
 
 public class Jugador extends Entidad {
-    private int[] posicion;
     private int tpSeguros;
 
     public Jugador(int x, int y) {
@@ -16,5 +15,4 @@ public class Jugador extends Entidad {
     public void setTpSeguros(int tpSeguros) {
         this.tpSeguros = tpSeguros;
     }
-
 }

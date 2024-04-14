@@ -1,7 +1,9 @@
-package canlor.tp1robots.module.entidades;
+package canlor.tp1robots.modelo.entidades;
+
+import java.util.ArrayList;
 
 public class Entidad {
-    private int[] posicion;
+    private final int[] posicion;
     int tipoEntidad; //0 jugador 1 robot1 2 robot2 3 explosion
     private boolean activo;
 
@@ -31,8 +33,8 @@ public class Entidad {
         return tipoEntidad;
     }
 
-    public void moverse(int x, int y) {
-        if (getX() == x && getY() == y) {
+    public void moverse(int x, int y, ArrayList<Entidad> enemigos) {
+        /*if (getX() == x && getY() == y) {
             return;
         } else if (getX() == x) {
             if (getY() < y) {
@@ -60,7 +62,12 @@ public class Entidad {
                 setY(getY() - 1);
                 setX(getX() + 1);
             }
-        }
+        }*/
+        int dx = Integer.compare(x, getX());
+        int dy = Integer.compare(y, getY());
+
+        setX(getX() + dx);
+        setY(getY() + dy);
     }
 
     public boolean isActivo() {

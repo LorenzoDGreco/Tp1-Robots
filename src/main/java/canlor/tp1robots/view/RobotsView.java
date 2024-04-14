@@ -1,27 +1,25 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.module.juego.Juego;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class RobotsView {
-    private VBox root;
-    private Menu menu;
-    private StackPane union;
-    private Tablero tablero;
-    private Botones botones;
-    private Scene scene;
+    private final VBox root;
+    private final Menu menu;
+    private final Tablero tablero;
+    private final Botones botones;
+    private final Stage stage;
 
-    private Juego modelo;
+    private final Juego modelo;
 
     public RobotsView(Stage stage, Juego modelo, int filas, int columnas) throws IOException {
+        this.stage = stage;
+        this.modelo = modelo;
         stage.setTitle("Robots");
 
         root = new VBox();
@@ -35,25 +33,35 @@ public class RobotsView {
         botones = new Botones(modelo);
         root.getChildren().add(botones.getBotones());
 
-        scene = new Scene(root, 720, 625);
+        Scene scene = new Scene(root, 720, 625);
 
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
 
     public void redimensionar() {
         tablero.actualizarDimension(modelo.getDimension());
-        //scene Cambiar el tamaño correspondiente para que entre
+
+        int[] tamanio = modelo.getTamanioTotal();
+        stage.setWidth(tamanio[0]);
+        stage.setHeight(tamanio[1]);
+
+        menu.cerrarVentana();
     }
 
     public void actualizar() {
-        //tablero.reiniciar(); //Casi seguro de que va pero quiero ver como se comporta la grilla sin reiniciar por actualizacion | hacerlo priv y que este en posiciones
-        tablero.actualizarPosiciones();
+        tablero.reiniciar();
         botones.actualizarBoton();
     }
 
-    public void crearEventos(ArrayList<EventHandler<ActionEvent>> ListEvents) {
-        //menu.crearEvento();
+    public void crearEventos(Eventos eventos) {
+        menu.crearEvento(eventos);
+        botones.crearEvento(eventos);
+    }
+
+    public void setErrorLabel(String error) {
+        menu.setErrorLabel(error);
     }
 
     public String[] getRedimensiones() {

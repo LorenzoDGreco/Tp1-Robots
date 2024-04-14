@@ -1,7 +1,7 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.module.entidades.Entidad;
-import canlor.tp1robots.module.juego.Juego;
+import canlor.tp1robots.modelo.entidades.Entidad;
+import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Tablero {
     private final Juego modelo;
-    private GridPane gp;
+    private final GridPane gp;
     private int[] dimension;
 
     public Tablero(int x, int y, Juego modelo) {
@@ -39,23 +39,30 @@ public class Tablero {
 
     public void actualizarDimension(int[] nueva) {
         dimension = nueva;
-        inicializarTablero();
-        actualizarPosiciones();
+        reiniciar();
     }
 
     public void actualizarPosiciones() {
         ArrayList<Entidad> enemigos =  modelo.getEnemigos();
 
-        gp.add(new Rectangle(10,10, Color.YELLOW), modelo.getJugador().getX(), modelo.getJugador().getY());
+        gp.add(new Rectangle(10,10, Color.YELLOW), modelo.getJugador().getY(), modelo.getJugador().getX());
 
         for (Entidad entidad : enemigos) {
-            gp.add(new Rectangle(10,10, Color.BLACK), entidad.getX(), entidad.getY());
+            //provisional...
+            if (entidad.getTipoEntidad() == 3) {
+                gp.add(new Rectangle(10,10, Color.RED), entidad.getY(), entidad.getX());
+            } else if (entidad.getTipoEntidad() == 2) {
+                gp.add(new Rectangle(10,10, Color.BROWN), entidad.getY(), entidad.getX());
+            } else if (entidad.getTipoEntidad() == 1) {
+                gp.add(new Rectangle(10,10, Color.DARKGRAY), entidad.getY(), entidad.getX());
+            }
         }
     }
 
     public void reiniciar() {
         gp.getChildren().clear();
         inicializarTablero();
+        actualizarPosiciones();
     }
 
     public GridPane getTablero() {
