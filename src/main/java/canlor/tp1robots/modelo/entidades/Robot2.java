@@ -13,16 +13,14 @@ public class Robot2 extends Entidad {
         int dx = Integer.compare(x, getX());
         int dy = Integer.compare(y, getY());
 
-        // Primer movimiento
         int newX = getX() + dx;
         int newY = getY() + dy;
 
         setX(newX);
         setY(newY);
 
-        // Verificar colisión en el primer movimiento
         if (!huboColision(newX, newY, enemigos)) {
-            // Segundo movimiento si no hay colisión en el primer movimiento
+
             dx = Integer.compare(x, getX());
             dy = Integer.compare(y, getY());
 
@@ -31,7 +29,6 @@ public class Robot2 extends Entidad {
 
             setX(newX);
             setY(newY);
-
         }
     }
 

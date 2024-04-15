@@ -47,7 +47,8 @@ public class Menu {
 
             Text text = new Text("F x C");
             text.setFont(Font.font(15));
-            // ------------------------------------
+            // ----------------------------
+
             HBox campos = new HBox();
 
             campos.setAlignment(Pos.CENTER);
@@ -62,13 +63,11 @@ public class Menu {
             X.setFont(Font.font(15));
 
             campos.getChildren().addAll(filas, X, columnas);
-            // --------------------------------------
+            // ----------------------------
 
             errorLabel = new Text("");
             errorLabel.setFont(Font.font(15));
-
-
-            // --------------------------------------
+            // ----------------------------
 
             HBox botones = new HBox();
 
@@ -88,7 +87,7 @@ public class Menu {
         });
 
         MenuItem salirItem = new MenuItem("Salir");
-        salirItem.setOnAction(e -> Platform.exit());
+        salirItem.setOnAction(_ -> Platform.exit());
 
         menu.getItems().addAll(restart, dimensionItem, salirItem);
 

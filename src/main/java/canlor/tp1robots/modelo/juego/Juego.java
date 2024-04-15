@@ -13,7 +13,7 @@ public class Juego {
 
     public Juego(int filas, int columnas) {
         cantRobotsInicial = new int[]{4,2};
-        dimension = new int[]{filas, columnas}; // a checkear
+        dimension = new int[]{filas, columnas};
         nivel = 1;
         enemigos = new ArrayList<>();
         jugador = new Jugador(filas/2, columnas/2);
@@ -44,13 +44,13 @@ public class Juego {
 
     public boolean TerminoPartida() {
         if (jugador.isActivo()) {
-            return false; // el jugador esta vivo: no termino la partida
+            return false;
         }
-        //Ganar partida
+
         boolean gano = true;
         for (Entidad enemigo : enemigos) {
             if (enemigo.getTipoEntidad() == 1 || enemigo.getTipoEntidad() == 2) {
-                gano = false; // todavia quedan robots, todavia no gano
+                gano = false;
                 break;
             }
         }
@@ -76,6 +76,7 @@ public class Juego {
 
     private void moverJugador(int x, int y) {
         jugador.moverse(x, y, enemigos);
+        Colision();
     }
 
     private void moverRobots() {
@@ -104,7 +105,7 @@ public class Juego {
             for (int j = i + 1; j < enemigos.size(); j++) {
                 Entidad enemigo2 = enemigos.get(j);
 
-                if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY()) && (enemigo1.isActivo() && enemigo2.isActivo())) {
+                if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY())) {
                     String posicionExplosion = enemigo1.getX() + "," + enemigo1.getY();
 
                     if (!posicionesExplosiones.contains(posicionExplosion)) {
