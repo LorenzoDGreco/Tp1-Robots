@@ -58,6 +58,7 @@ public class RobotsView {
     public void crearEventos(Eventos eventos) {
         menu.crearEvento(eventos);
         botones.crearEvento(eventos);
+        tablero.crearEvento(eventos);
     }
 
     public void setErrorLabel(String error) {

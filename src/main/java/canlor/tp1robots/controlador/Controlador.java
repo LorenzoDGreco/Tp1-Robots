@@ -59,6 +59,14 @@ public class Controlador {
             vista.actualizar();
         });
 
+        eventos.setMouseClick(e -> {
+            int columna = (int) (e.getX() / 16);
+            int fila = (int) (e.getY() / 16);
+
+            modelo.mover(fila, columna);
+            vista.actualizar();
+        });
+
 
         vista.crearEventos(eventos);
     }

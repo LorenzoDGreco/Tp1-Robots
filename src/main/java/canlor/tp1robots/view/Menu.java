@@ -97,7 +97,6 @@ public class Menu {
     public void crearEvento(Eventos eventos) {
         aceptar.setOnAction(eventos.getRedimensionar());
         restart.setOnAction(eventos.getReiniciar());
-
     }
 
     public void cerrarVentana(){

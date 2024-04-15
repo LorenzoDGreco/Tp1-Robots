@@ -1,5 +1,6 @@
 package canlor.tp1robots.view;
 
+import canlor.tp1robots.controlador.Eventos;
 import canlor.tp1robots.modelo.entidades.Entidad;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.layout.GridPane;
@@ -63,6 +64,10 @@ public class Tablero {
         gp.getChildren().clear();
         inicializarTablero();
         actualizarPosiciones();
+    }
+
+    public void crearEvento(Eventos eventos) {
+        gp.setOnMouseClicked(eventos.getMouseClick());
     }
 
     public GridPane getTablero() {
