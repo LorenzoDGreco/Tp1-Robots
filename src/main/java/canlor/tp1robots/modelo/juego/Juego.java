@@ -82,10 +82,7 @@ public class Juego {
     private void moverRobots() {
         System.out.println(enemigos);
         for (Entidad entidad : enemigos) {
-            if (entidad.isActivo()){
-                entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
-            }
-
+            entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
         }
         Colision();
     }

@@ -34,35 +34,6 @@ public class Entidad {
     }
 
     public void moverse(int x, int y, ArrayList<Entidad> enemigos) {
-        /*if (getX() == x && getY() == y) {
-            return;
-        } else if (getX() == x) {
-            if (getY() < y) {
-                setY(getY() + 1);
-            } else {
-                setY(getY() - 1);
-            }
-        } else if (getY() == y) {
-            if (getX() < x) {
-                setX(getX() + 1);
-            } else {
-                setX(getX() - 1);
-            }
-        } else { // diagonales
-            if (getY() > y && getX() < x) { // esta arriba a la izq
-                setY(getY() + 1);
-                setX(getX() - 1);
-            } else if (getY() > y && getX() > x) { // abajo a la der
-                setY(getY() + 1);
-                setX(getX() + 1);
-            } else if (getY() < y && getX() < x) {
-                setY(getY() - 1);
-                setX(getX() - 1);
-            } else if (getY() < y && getX() > x) {
-                setY(getY() - 1);
-                setX(getX() + 1);
-            }
-        }*/
         int dx = Integer.compare(x, getX());
         int dy = Integer.compare(y, getY());
 

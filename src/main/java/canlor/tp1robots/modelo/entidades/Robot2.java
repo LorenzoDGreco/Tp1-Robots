@@ -10,31 +10,24 @@ public class Robot2 extends Entidad {
 
     @Override
     public void moverse(int x, int y, ArrayList<Entidad> enemigos) {
+        darUnPaso(x, y);
+
+        if (!huboColision(getX(), getY(), enemigos)) {
+            darUnPaso(x, y);
+        }
+    }
+
+    private void darUnPaso(int x, int y) {
         int dx = Integer.compare(x, getX());
         int dy = Integer.compare(y, getY());
-
-        int newX = getX() + dx;
-        int newY = getY() + dy;
-
-        setX(newX);
-        setY(newY);
-
-        if (!huboColision(newX, newY, enemigos)) {
-
-            dx = Integer.compare(x, getX());
-            dy = Integer.compare(y, getY());
-
-            newX += dx;
-            newY += dy;
-
-            setX(newX);
-            setY(newY);
-        }
+        
+        setX(getX() + dx);
+        setY(getY() + dy);
     }
 
     private boolean huboColision(int x, int y, ArrayList<Entidad> enemigos) {
         for (Entidad entidad : enemigos) {
-            if (entidad != this && entidad.isActivo() && entidad.getX() == x && entidad.getY() == y) {
+            if (entidad != this && entidad.getX() == x && entidad.getY() == y) {
                 return true;
             }
         }
