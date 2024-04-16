@@ -2,6 +2,9 @@ package canlor.tp1robots.view;
 
 import canlor.tp1robots.controlador.Eventos;
 import canlor.tp1robots.modelo.entidades.Entidad;
+import canlor.tp1robots.modelo.entidades.Explosion;
+import canlor.tp1robots.modelo.entidades.Robot1;
+import canlor.tp1robots.modelo.entidades.Robot2;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -50,11 +53,11 @@ public class Tablero {
 
         for (Entidad entidad : enemigos) {
             //provisional...
-            if (entidad.getTipoEntidad() == 3) {
+            if (entidad instanceof Explosion) {
                 gp.add(new Rectangle(10, 10, Color.RED), entidad.getY(), entidad.getX());
-            } else if (entidad.getTipoEntidad() == 2) {
+            } else if (entidad instanceof Robot2) {
                 gp.add(new Rectangle(10, 10, Color.BROWN), entidad.getY(), entidad.getX());
-            } else if (entidad.getTipoEntidad() == 1) {
+            } else if (entidad instanceof Robot1) {
                 gp.add(new Rectangle(10, 10, Color.DARKGRAY), entidad.getY(), entidad.getX());
             }
         }

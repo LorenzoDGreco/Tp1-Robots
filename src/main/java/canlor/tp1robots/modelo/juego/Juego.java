@@ -4,6 +4,17 @@ import canlor.tp1robots.modelo.entidades.*;
 
 import java.util.*;
 
+
+/**
+ * imagenes
+ * animaciones
+ * refactorizar juego
+ * UML
+ * documentacion
+ * tomar birrita mientras se llora por el 2 del parcial
+ *
+ */
+
 public class Juego {
     final int[] cantRobotsInicial;
     private final int[] dimension;
@@ -54,7 +65,7 @@ public class Juego {
 
         boolean gano = true;
         for (Entidad enemigo : enemigos) {
-            if (enemigo.getTipoEntidad() == 1 || enemigo.getTipoEntidad() == 2) {
+            if (!(enemigo instanceof Explosion)) {
                 gano = false;
                 break;
             }
@@ -66,7 +77,7 @@ public class Juego {
         return gano;
     }
 
-    private void comprobarEstado (Runnable fun) {
+    private void comprobarEstadoPartida(Runnable fun) {
         if (!terminoPartida()) {
             fun.run();
         } else {
@@ -79,7 +90,7 @@ public class Juego {
     }
 
     public void mover(int x, int y) {
-        comprobarEstado(() ->{
+        comprobarEstadoPartida(() ->{
             if (tpSeguroActivado) {
                 TpSeguro(x, y);
             } else {
@@ -136,7 +147,7 @@ public class Juego {
     }
 
     public void TpAleatorio() {
-        comprobarEstado(() ->{
+        comprobarEstadoPartida(() ->{
             int[] coords = posicionAleatoria();
             jugador.setY(coords[0]);
             jugador.setX(coords[1]);
