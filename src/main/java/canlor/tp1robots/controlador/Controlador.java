@@ -94,13 +94,14 @@ public class Controlador {
                     modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
                     break;
                 case X:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY());
                     break;
                 case C:
                     modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()+1);
                     break;
-                default:
-                    //
+                case R:
+                    modelo.reiniciar();
+                    break;
             };
             vista.actualizar();
 
