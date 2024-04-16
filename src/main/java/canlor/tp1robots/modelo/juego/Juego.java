@@ -88,7 +88,6 @@ public class Juego {
     }
 
     private void moverRobots() {
-        System.out.println(enemigos);
         for (Entidad entidad : enemigos) {
             entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
         }

@@ -70,37 +70,39 @@ public class Controlador {
         });
 
         eventos.setTeclado(event -> {
-
             KeyCode key = event.getCode();
             switch (key) {
                 case W:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY());
+                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY());
+                    break;
                 case Q:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
-
-                case E:
                     modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY()-1);
-
+                    break;
+                case E:
+                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY()+1);
+                    break;
                 case A:
                     modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()-1);
-
+                    break;
                 case S:
-                    return;
-
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
+                    break;
                 case D:
                     modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()+1);
-
+                    break;
                 case Z:
                     modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
-
+                    break;
                 case X:
-                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY());
-
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
+                    break;
                 case C:
                     modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()+1);
-            }
-
-
+                    break;
+                default:
+                    //
+            };
+            vista.actualizar();
 
         });
 
