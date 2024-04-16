@@ -13,12 +13,12 @@ public class Juego {
     private boolean tpSeguroActivado;
 
     public Juego(int filas, int columnas) {
-        cantRobotsInicial = new int[]{4,2};
+        cantRobotsInicial = new int[]{4, 2};
         dimension = new int[]{filas, columnas};
         tpSeguroActivado = false;
         nivel = 1;
         enemigos = new ArrayList<>();
-        jugador = new Jugador(filas/2, columnas/2);
+        jugador = new Jugador(filas / 2, columnas / 2);
     }
 
     public void reiniciar() {
@@ -30,25 +30,26 @@ public class Juego {
     }
 
     public void iniciar() {
+        enemigos = new ArrayList<>();
         tpSeguroActivado = false;
-        jugador.setX(dimension[0]/2);
-        jugador.setY(dimension[1]/2);
+        jugador.setX(dimension[0] / 2);
+        jugador.setY(dimension[1] / 2);
         jugador.setActivo(true);
 
         for (int i = 0; i < cantRobotsInicial[0] * nivel; i++) {
-            int[] coords = PosicionAleatoria();
+            int[] coords = posicionAleatoria();
             enemigos.add(new Robot1(coords[1], coords[0]));
         }
 
         for (int i = 0; i < cantRobotsInicial[1] * nivel; i++) {
-            int[] coords = PosicionAleatoria();
+            int[] coords = posicionAleatoria();
             enemigos.add(new Robot2(coords[1], coords[0]));
         }
     }
 
-    public boolean TerminoPartida() {
-        if (jugador.isActivo()) {
-            return false;
+    public boolean terminoPartida() {
+        if (!jugador.isActivo()) {
+            return true;
         }
 
         boolean gano = true;
@@ -59,42 +60,47 @@ public class Juego {
             }
         }
         if (gano) {
-            nivel +=1;
+            nivel += 1;
+            jugador.setTpSeguros(jugador.getTpSeguros() + 1);
         }
         return gano;
     }
 
-    public int[] PosicionAleatoria(){
-        Random rand = new Random();
-
-        int X = rand.nextInt(dimension[1]);
-        int Y = rand.nextInt(dimension[0]);
-
-        return new int[]{X, Y};
+    private void comprobarEstado (Runnable fun) {
+        if (!terminoPartida()) {
+            fun.run();
+        } else {
+            if (jugador.isActivo()){
+                iniciar();
+            } else {
+                reiniciar();
+            }
+        }
     }
 
     public void mover(int x, int y) {
-        if (tpSeguroActivado) {
-            TpSeguro(x, y);
-        } else {
-            moverJugador(x, y);
-            moverRobots();
-        }
+        comprobarEstado(() ->{
+            if (tpSeguroActivado) {
+                TpSeguro(x, y);
+            } else {
+                moverJugador(x, y);
+                moverRobots();
+            }
+        });
     }
 
     private void moverJugador(int x, int y) {
         jugador.moverse(x, y, enemigos);
-        Colision();
     }
 
     private void moverRobots() {
         for (Entidad entidad : enemigos) {
             entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
         }
-        Colision();
+        colision();
     }
 
-    private void Colision() {
+    private void colision() {
         List<Entidad> entidadesAQuitar = new ArrayList<>();
         List<Explosion> explosionesAñadir = new ArrayList<>();
         Set<String> posicionesExplosiones = new HashSet<>();
@@ -129,13 +135,13 @@ public class Juego {
         enemigos.addAll(explosionesAñadir);
     }
 
-
-
     public void TpAleatorio() {
-        int[] coords = PosicionAleatoria();
-        jugador.setY(coords[0]);
-        jugador.setX(coords[1]);
-        moverRobots();
+        comprobarEstado(() ->{
+            int[] coords = posicionAleatoria();
+            jugador.setY(coords[0]);
+            jugador.setX(coords[1]);
+            moverRobots();
+        });
     }
 
     private boolean hayTpSeguro() {
@@ -146,7 +152,7 @@ public class Juego {
         if (hayTpSeguro()) {
             jugador.setX(x);
             jugador.setY(y);
-            jugador.setTpSeguros(jugador.getTpSeguros()-1);
+            jugador.setTpSeguros(jugador.getTpSeguros() - 1);
             tpSeguroActivado = false;
             moverRobots();
         }
@@ -156,6 +162,15 @@ public class Juego {
     public void redimensionar(int x, int y) {
         dimension[0] = x;
         dimension[1] = y;
+    }
+
+    public int[] posicionAleatoria() {
+        Random rand = new Random();
+
+        int X = rand.nextInt(dimension[1]);
+        int Y = rand.nextInt(dimension[0]);
+
+        return new int[]{X, Y};
     }
 
     public ArrayList<Entidad> getEnemigos() {
@@ -171,7 +186,7 @@ public class Juego {
     }
 
     public int[] getTamanioTotal() {
-        int width = 16 + dimension[1] * 16;
+        int width = 16 + (dimension[1] * 16);
         int height = 20 + 165 + (dimension[0] * 16);
         return new int[]{width, height};
     }
@@ -188,5 +203,9 @@ public class Juego {
 
     public int getJugadorY() {
         return jugador.getY();
+    }
+
+    public int getNivel() {
+        return nivel;
     }
 }

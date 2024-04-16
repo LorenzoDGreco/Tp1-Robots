@@ -4,15 +4,13 @@ import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
 import javafx.scene.input.KeyCode;
 
-import java.awt.event.KeyEvent;
-
 public class Controlador {
 
     private final Juego modelo;
     private final RobotsView vista;
     private Eventos eventos;
 
-    public Controlador(Juego modelo, RobotsView vista){
+    public Controlador(Juego modelo, RobotsView vista) {
         this.modelo = modelo;
         this.vista = vista;
     }
@@ -73,36 +71,36 @@ public class Controlador {
             KeyCode key = event.getCode();
             switch (key) {
                 case W:
-                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY());
+                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY());
                     break;
                 case Q:
-                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY()-1);
+                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() - 1);
                     break;
                 case E:
-                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY()+1);
+                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() + 1);
                     break;
                 case A:
-                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()-1);
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() - 1);
                     break;
                 case S:
                     modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
                     break;
                 case D:
-                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()+1);
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() + 1);
                     break;
                 case Z:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
+                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() - 1);
                     break;
                 case X:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY());
+                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY());
                     break;
                 case C:
-                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()+1);
+                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() + 1);
                     break;
                 case R:
                     modelo.reiniciar();
                     break;
-            };
+            }
             vista.actualizar();
 
         });

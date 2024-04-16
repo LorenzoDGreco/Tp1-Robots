@@ -20,7 +20,7 @@ public class Robot2 extends Entidad {
     private void darUnPaso(int x, int y) {
         int dx = Integer.compare(x, getX());
         int dy = Integer.compare(y, getY());
-        
+
         setX(getX() + dx);
         setY(getY() + dy);
     }

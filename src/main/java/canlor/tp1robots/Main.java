@@ -12,7 +12,7 @@ public class Main extends Application {
         int filas = 30;
         int columnas = 45;
 
-        Juego modelo = new Juego(filas,columnas);
+        Juego modelo = new Juego(filas, columnas);
         RobotsView vista = new RobotsView(stage, modelo, filas, columnas);
         Controlador controlador = new Controlador(modelo, vista);
         controlador.iniciar();

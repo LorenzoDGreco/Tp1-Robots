@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RobotsView {
     private final VBox root;
-    private final Menu menu;
+    private final MenuOpciones menuOpciones;
     private final Tablero tablero;
     private final Botones botones;
     private final Scene scene;
@@ -25,10 +25,10 @@ public class RobotsView {
 
         root = new VBox();
 
-        menu = new Menu();
-        root.getChildren().add(menu.getMenuBar());
+        menuOpciones = new MenuOpciones(modelo);
+        root.getChildren().add(menuOpciones.getMenuBar());
 
-        tablero = new Tablero(filas,columnas,modelo);
+        tablero = new Tablero(filas, columnas, modelo);
         root.getChildren().add(tablero.getTablero());
 
         botones = new Botones(modelo);
@@ -48,26 +48,27 @@ public class RobotsView {
         stage.setWidth(tamanio[0]);
         stage.setHeight(tamanio[1]);
 
-        menu.cerrarVentana();
+        menuOpciones.cerrarVentana();
     }
 
     public void actualizar() {
         tablero.reiniciar();
         botones.actualizarBoton();
+        menuOpciones.setNivelLabel();
     }
 
     public void crearEventos(Eventos eventos) {
         scene.setOnKeyReleased(eventos.getTeclado());
-        menu.crearEvento(eventos);
+        menuOpciones.crearEvento(eventos);
         botones.crearEvento(eventos);
         tablero.crearEvento(eventos);
     }
 
     public void setErrorLabel(String error) {
-        menu.setErrorLabel(error);
+        menuOpciones.setErrorLabel(error);
     }
 
     public String[] getRedimensiones() {
-        return menu.getRedimensiones();
+        return menuOpciones.getRedimensiones();
     }
 }

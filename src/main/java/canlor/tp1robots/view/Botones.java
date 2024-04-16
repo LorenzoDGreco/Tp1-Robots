@@ -55,7 +55,7 @@ public class Botones {
         return gb;
     }
 
-    public void actualizarBoton(){
+    public void actualizarBoton() {
         tpSeguro.setText("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
     }
 

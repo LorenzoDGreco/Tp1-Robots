@@ -28,11 +28,11 @@ public class Tablero {
         for (int i = 0; i < dimension[0]; i++) {  //Si se redimensiona al reves cambiar esto
             for (int j = 0; j < dimension[1]; j++) {
                 if ((i + j) % 2 == 0) {
-                    color = Color.rgb(106,130,158);
+                    color = Color.rgb(106, 130, 158);
                 } else {
-                    color = Color.rgb(118,142,169);
+                    color = Color.rgb(118, 142, 169);
                 }
-                Rectangle rect = new Rectangle(16,16, color);
+                Rectangle rect = new Rectangle(16, 16, color);
                 gp.add(rect, j, i);
             }
         }
@@ -44,18 +44,18 @@ public class Tablero {
     }
 
     public void actualizarPosiciones() {
-        ArrayList<Entidad> enemigos =  modelo.getEnemigos();
+        ArrayList<Entidad> enemigos = modelo.getEnemigos();
 
-        gp.add(new Rectangle(10,10, Color.YELLOW), modelo.getJugadorY(), modelo.getJugadorX());
+        gp.add(new Rectangle(10, 10, Color.YELLOW), modelo.getJugadorY(), modelo.getJugadorX());
 
         for (Entidad entidad : enemigos) {
             //provisional...
             if (entidad.getTipoEntidad() == 3) {
-                gp.add(new Rectangle(10,10, Color.RED), entidad.getY(), entidad.getX());
+                gp.add(new Rectangle(10, 10, Color.RED), entidad.getY(), entidad.getX());
             } else if (entidad.getTipoEntidad() == 2) {
-                gp.add(new Rectangle(10,10, Color.BROWN), entidad.getY(), entidad.getX());
+                gp.add(new Rectangle(10, 10, Color.BROWN), entidad.getY(), entidad.getX());
             } else if (entidad.getTipoEntidad() == 1) {
-                gp.add(new Rectangle(10,10, Color.DARKGRAY), entidad.getY(), entidad.getX());
+                gp.add(new Rectangle(10, 10, Color.DARKGRAY), entidad.getY(), entidad.getX());
             }
         }
     }

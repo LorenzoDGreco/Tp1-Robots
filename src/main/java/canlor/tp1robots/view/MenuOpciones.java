@@ -1,6 +1,7 @@
 package canlor.tp1robots.view;
 
 import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.modelo.juego.Juego;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,30 +14,34 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Menu {
+public class MenuOpciones {
+    private final Juego modelo;
     private final MenuBar menuBar;
     private final MenuItem restart;
     private final Button aceptar;
+    private Menu nivel;
     private TextField filas;
     private TextField columnas;
     private Text errorLabel;
     private Stage stage;
 
-    public Menu() {
+    public MenuOpciones(Juego modelo) {
+        this.modelo = modelo;
         menuBar = new MenuBar();
         menuBar.setUseSystemMenuBar(true);
         menuBar.setBackground(Background.fill(Color.rgb(243, 243, 243)));
         aceptar = new Button("Aceptar");
         restart = new MenuItem("Reinciar");
 
-        javafx.scene.control.Menu menu = createMenu();
+        Menu menu = createMenu();
         menuBar.getMenus().add(menu);
+
+        nivel = new Menu("Nivel: " + modelo.getNivel());
+        menuBar.getMenus().add(nivel);
     }
 
     private javafx.scene.control.Menu createMenu() {
-        javafx.scene.control.Menu menu = new javafx.scene.control.Menu("Opciones");
-
-
+        Menu menu = new Menu("Opciones");
 
         MenuItem dimensionItem = new MenuItem("Elegir dimension");
         dimensionItem.setOnAction(e -> {
@@ -99,12 +104,18 @@ public class Menu {
         restart.setOnAction(eventos.getReiniciar());
     }
 
-    public void cerrarVentana(){
+    public void cerrarVentana() {
         stage.close();
     }
 
     public void setErrorLabel(String error) {
         errorLabel.setText(error);
+    }
+
+    public void setNivelLabel() {
+        menuBar.getMenus().remove(nivel);
+        this.nivel = new Menu("Nivel: " + modelo.getNivel());
+        menuBar.getMenus().add(nivel);
     }
 
     public MenuBar getMenuBar() {
