@@ -54,11 +54,11 @@ public class Menu {
             campos.setAlignment(Pos.CENTER);
             filas = new TextField();
             filas.setPrefWidth(50);
-            filas.setPromptText(">=25");
+            filas.setPromptText(">=10");
 
             columnas = new TextField();
             columnas.setPrefWidth(50);
-            columnas.setPromptText(">=25");
+            columnas.setPromptText(">=10");
             Text X = new Text(" x ");
             X.setFont(Font.font(15));
 

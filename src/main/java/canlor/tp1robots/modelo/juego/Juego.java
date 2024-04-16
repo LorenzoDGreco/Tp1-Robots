@@ -10,16 +10,19 @@ public class Juego {
     private ArrayList<Entidad> enemigos;
     private final Jugador jugador;
     private int nivel;
+    private boolean tpSeguroActivado;
 
     public Juego(int filas, int columnas) {
         cantRobotsInicial = new int[]{4,2};
         dimension = new int[]{filas, columnas};
+        tpSeguroActivado = false;
         nivel = 1;
         enemigos = new ArrayList<>();
         jugador = new Jugador(filas/2, columnas/2);
     }
 
     public void reiniciar() {
+        tpSeguroActivado = false;
         nivel = 1;
         enemigos = new ArrayList<>();
         jugador.setTpSeguros(1);
@@ -27,6 +30,7 @@ public class Juego {
     }
 
     public void iniciar() {
+        tpSeguroActivado = false;
         jugador.setX(dimension[0]/2);
         jugador.setY(dimension[1]/2);
         jugador.setActivo(true);
@@ -70,8 +74,12 @@ public class Juego {
     }
 
     public void mover(int x, int y) {
-        moverJugador(x, y);
-        moverRobots();
+        if (tpSeguroActivado) {
+            TpSeguro(x, y);
+        } else {
+            moverJugador(x, y);
+            moverRobots();
+        }
     }
 
     private void moverJugador(int x, int y) {
@@ -139,6 +147,7 @@ public class Juego {
             jugador.setX(x);
             jugador.setY(y);
             jugador.setTpSeguros(jugador.getTpSeguros()-1);
+            tpSeguroActivado = false;
             moverRobots();
         }
 
@@ -169,5 +178,9 @@ public class Juego {
         int width = 16 + dimension[1] * 16;
         int height = 20 + 165 + (dimension[0] * 16);
         return new int[]{width, height};
+    }
+
+    public void activarTpSeguro() {
+        tpSeguroActivado = true;
     }
 }
