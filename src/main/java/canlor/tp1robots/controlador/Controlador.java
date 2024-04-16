@@ -2,6 +2,9 @@ package canlor.tp1robots.controlador;
 
 import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
+import javafx.scene.input.KeyCode;
+
+import java.awt.event.KeyEvent;
 
 public class Controlador {
 
@@ -49,7 +52,7 @@ public class Controlador {
         });
 
         eventos.setEsperar(_ -> {
-            modelo.mover(modelo.getJugador().getX(), modelo.getJugador().getY());
+            modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
             vista.actualizar();
         });
 
@@ -64,6 +67,41 @@ public class Controlador {
 
             modelo.mover(fila, columna);
             vista.actualizar();
+        });
+
+        eventos.setTeclado(event -> {
+
+            KeyCode key = event.getCode();
+            switch (key) {
+                case W:
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY());
+                case Q:
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
+
+                case E:
+                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY()-1);
+
+                case A:
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()-1);
+
+                case S:
+                    return;
+
+                case D:
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY()+1);
+
+                case Z:
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()-1);
+
+                case X:
+                    modelo.mover(modelo.getJugadorX()-1, modelo.getJugadorY());
+
+                case C:
+                    modelo.mover(modelo.getJugadorX()+1, modelo.getJugadorY()+1);
+            }
+
+
+
         });
 
         vista.crearEventos(eventos);

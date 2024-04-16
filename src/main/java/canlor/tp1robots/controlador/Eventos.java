@@ -2,6 +2,7 @@ package canlor.tp1robots.controlador;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class Eventos {
@@ -11,7 +12,7 @@ public class Eventos {
     private EventHandler<ActionEvent> esperar;
     private EventHandler<ActionEvent> reiniciar;
     private EventHandler<MouseEvent> mouseClick;
-    private EventHandler<ActionEvent> teclado;
+    private EventHandler<KeyEvent> teclado;
 
 
     public EventHandler<ActionEvent> getRedimensionar() {
@@ -62,11 +63,11 @@ public class Eventos {
         this.mouseClick = mouse;
     }
 
-    public EventHandler<ActionEvent> getTeclado() {
+    public EventHandler<KeyEvent> getTeclado() {
         return teclado;
     }
 
-    public void setTeclado(EventHandler<ActionEvent> teclado) {
+    public void setTeclado(EventHandler<KeyEvent> teclado) {
         this.teclado = teclado;
     }
 }

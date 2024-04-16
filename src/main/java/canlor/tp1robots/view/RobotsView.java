@@ -13,6 +13,7 @@ public class RobotsView {
     private final Menu menu;
     private final Tablero tablero;
     private final Botones botones;
+    private final Scene scene;
     private final Stage stage;
 
     private final Juego modelo;
@@ -33,7 +34,7 @@ public class RobotsView {
         botones = new Botones(modelo);
         root.getChildren().add(botones.getBotones());
 
-        Scene scene = new Scene(root, 720, 625);
+        scene = new Scene(root, 720, 625);
 
         stage.setResizable(false);
         stage.setScene(scene);
@@ -56,6 +57,7 @@ public class RobotsView {
     }
 
     public void crearEventos(Eventos eventos) {
+        scene.setOnKeyReleased(eventos.getTeclado());
         menu.crearEvento(eventos);
         botones.crearEvento(eventos);
         tablero.crearEvento(eventos);

@@ -131,6 +131,7 @@ public class Juego {
     }
 
 
+
     public void TpAleatorio() {
         int[] coords = PosicionAleatoria();
         jugador.setY(coords[0]);
@@ -138,12 +139,12 @@ public class Juego {
         moverRobots();
     }
 
-    private boolean HayTpSeguro() {
+    private boolean hayTpSeguro() {
         return jugador.getTpSeguros() > 0;
     }
 
     public void TpSeguro(int x, int y) {
-        if (HayTpSeguro()) {
+        if (hayTpSeguro()) {
             jugador.setX(x);
             jugador.setY(y);
             jugador.setTpSeguros(jugador.getTpSeguros()-1);
@@ -166,10 +167,6 @@ public class Juego {
         return jugador.getTpSeguros();
     }
 
-    public Jugador getJugador() {
-        return jugador;
-    }
-
     public int[] getDimension() {
         return dimension;
     }
@@ -181,6 +178,16 @@ public class Juego {
     }
 
     public void activarTpSeguro() {
-        tpSeguroActivado = true;
+        if (hayTpSeguro()) {
+            tpSeguroActivado = true;
+        }
+    }
+
+    public int getJugadorX() {
+        return jugador.getX();
+    }
+
+    public int getJugadorY() {
+        return jugador.getY();
     }
 }

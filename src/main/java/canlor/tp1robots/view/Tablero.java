@@ -46,7 +46,7 @@ public class Tablero {
     public void actualizarPosiciones() {
         ArrayList<Entidad> enemigos =  modelo.getEnemigos();
 
-        gp.add(new Rectangle(10,10, Color.YELLOW), modelo.getJugador().getY(), modelo.getJugador().getX());
+        gp.add(new Rectangle(10,10, Color.YELLOW), modelo.getJugadorY(), modelo.getJugadorX());
 
         for (Entidad entidad : enemigos) {
             //provisional...
