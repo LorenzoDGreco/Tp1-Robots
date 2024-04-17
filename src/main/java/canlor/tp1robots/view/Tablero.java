@@ -56,14 +56,16 @@ public class Tablero {
     public void actualizarPosiciones() {
         ArrayList<Entidad> enemigos = modelo.getEnemigos();
 
-        gp.add(new Rectangle(10, 10, Color.YELLOW), modelo.getJugadorY(), modelo.getJugadorX());
+        Image imagenJugador = convertToJavaFXImage(modelo.getImagenJugador());
+        ImageView imagenVistaJugador = new ImageView(imagenJugador);
+
+        gp.add(imagenVistaJugador, modelo.getJugadorY(), modelo.getJugadorX());
 
         for (Entidad entidad : enemigos) {
 
-            Image image = convertToJavaFXImage(entidad.getImagen());
-            ImageView imageView = new ImageView(image);
-            gp.add(imageView, entidad.getY(), entidad.getX());
-
+            Image imagenEntidad = convertToJavaFXImage(entidad.getImagen());
+            ImageView imagenVistaEntidad = new ImageView(imagenEntidad);
+            gp.add(imagenVistaEntidad, entidad.getY(), entidad.getX());
 
             //provisional...
             /*

@@ -2,6 +2,7 @@ package canlor.tp1robots.modelo.juego;
 
 import canlor.tp1robots.modelo.entidades.*;
 
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 /**
@@ -206,6 +207,10 @@ public class Juego {
         }
     }
 
+    public int getNivel() {
+        return nivel;
+    }
+
     public int getJugadorX() {
         return jugador.getX();
     }
@@ -214,7 +219,12 @@ public class Juego {
         return jugador.getY();
     }
 
-    public int getNivel() {
-        return nivel;
+    public BufferedImage getImagenJugador() {
+        return jugador.getImagen();
+    }
+
+    public void cambiarImagen() {
+        jugador.cambiarImagen();
+        for(Entidad entidad : enemigos) { entidad.cambiarImagen();}
     }
 }

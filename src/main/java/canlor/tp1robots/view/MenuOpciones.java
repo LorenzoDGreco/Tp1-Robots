@@ -14,6 +14,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Representa el menu de opciones en el juego y muestra el nivel actual
+ * Contiene metodos para crear el menu, manejar eventos,
+ */
 public class MenuOpciones {
     private final Juego modelo;
     private final MenuBar menuBar;

@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import java.util.TimerTask;
+
 public class Eventos {
     private EventHandler<ActionEvent> redimensionar;
     private EventHandler<ActionEvent> tpAleatorio;
@@ -13,6 +15,7 @@ public class Eventos {
     private EventHandler<ActionEvent> reiniciar;
     private EventHandler<MouseEvent> mouseClick;
     private EventHandler<KeyEvent> teclado;
+    private TimerTask timer;
 
 
     public EventHandler<ActionEvent> getRedimensionar() {
@@ -70,4 +73,14 @@ public class Eventos {
     public void setTeclado(EventHandler<KeyEvent> teclado) {
         this.teclado = teclado;
     }
+
+    public TimerTask getTimer() {
+        return timer;
+    }
+
+    public void setTimer(TimerTask timer) {
+        this.timer = timer;
+    }
+
+
 }

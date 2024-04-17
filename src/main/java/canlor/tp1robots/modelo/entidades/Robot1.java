@@ -6,9 +6,9 @@ package canlor.tp1robots.modelo.entidades;
  */
 public class Robot1 extends Entidad {
     /**
-     *
-     * @param x
-     * @param y
+     * Construye un Robot1 en las coordenadas x e y dadas.
+     * @param x coordenadas x del robot1
+     * @param y coordenadas y del robot1
      */
     public Robot1(int x, int y) {
         super(x, y, new int[]{5,6,7,8});

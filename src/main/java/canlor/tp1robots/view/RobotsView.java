@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Timer;
 
 public class RobotsView {
     private final VBox root;
@@ -17,10 +18,12 @@ public class RobotsView {
     private final Stage stage;
 
     private final Juego modelo;
+    private final Timer timer;
 
     public RobotsView(Stage stage, Juego modelo, int filas, int columnas) throws IOException {
         this.stage = stage;
         this.modelo = modelo;
+        timer = new Timer();
         stage.setTitle("Robots");
 
         root = new VBox();
@@ -58,6 +61,7 @@ public class RobotsView {
     }
 
     public void crearEventos(Eventos eventos) {
+        timer.scheduleAtFixedRate(eventos.getTimer(),0,200);
         scene.setOnKeyReleased(eventos.getTeclado());
         menuOpciones.crearEvento(eventos);
         botones.crearEvento(eventos);
@@ -71,4 +75,9 @@ public class RobotsView {
     public String[] getRedimensiones() {
         return menuOpciones.getRedimensiones();
     }
+
+    public void detenerTimer() {
+        timer.cancel();
+    }
 }
+

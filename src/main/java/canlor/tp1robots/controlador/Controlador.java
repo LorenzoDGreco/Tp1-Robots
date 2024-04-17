@@ -2,7 +2,10 @@ package canlor.tp1robots.controlador;
 
 import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
+
+import java.util.TimerTask;
 
 public class Controlador {
 
@@ -105,12 +108,59 @@ public class Controlador {
             vista.actualizar();
         });
 
-        /*eventos.setTimer(_ -> {
-                //A cada 1seg cambiar imagen
+        eventos.setTimer(new TimerTask() {
+            @Override
+            public void run() {
                 modelo.cambiarImagen();
-                vista.actualizar();
-        });*/
+
+                Platform.runLater(() -> vista.actualizar());
+
+            }
+        });
 
         vista.crearEventos(eventos);
     }
 }
+
+/*
+public class Main extends Application {
+    private Timer timer;
+    private Label label;
+
+    @Override
+    public void start(Stage primaryStage) {
+        label = new Label("0");
+        StackPane root = new StackPane(label);
+        Scene scene = new Scene(root, 200, 100);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Timer en JavaFX");
+        primaryStage.show();
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int counter = 0;
+
+            @Override
+            public void run() {
+                // Incrementar el contador
+                counter++;
+
+                // Actualizar la interfaz de usuario
+                Platform.runLater(() -> label.setText(String.valueOf(counter)));
+            }
+        }, 0, 500); // Ejecutar cada segundo
+    }
+
+    @Override
+    public void stop() {
+        // Detener el timer cuando la aplicación se cierra
+        timer.cancel();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+
+
+ */

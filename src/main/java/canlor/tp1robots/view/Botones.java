@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-
+/**
+ * Representa los botones de la interfaz
+ * Contiene metodos para incializar los botones, actualizarlos y manejar eventos asciados
+ */
 public class Botones {
 
     private GridPane gb;
@@ -16,6 +19,10 @@ public class Botones {
 
     private final Juego modelo;
 
+    /**
+     * Constructor de la clase Botones
+     * @param modelo modelo del Juego que se esta jugando
+     */
     public Botones(Juego modelo) {
         gb = new GridPane();
         this.modelo = modelo;
@@ -23,6 +30,9 @@ public class Botones {
         inicializarBotones();
     }
 
+    /**
+     * Inicializa los botones de la interfaz
+     */
     private void inicializarBotones() {
         gb = new GridPane();
 
@@ -51,14 +61,25 @@ public class Botones {
         gb.add(esperar, 2, 0);
     }
 
+    /**
+     * Devuelve el GridPane con los botones
+     * @return GridPane con los botones
+     */
     public GridPane getBotones() {
         return gb;
     }
 
+    /**
+     * Actualiza el texto del boton de Teleport Seguro
+     */
     public void actualizarBoton() {
         tpSeguro.setText("Teleport Safely\n(Remaining: " + modelo.getTpSeguros() + ")");
     }
 
+    /**
+     * Crea los eventos asociados a los botones
+     * @param eventos
+     */
     public void crearEvento(Eventos eventos) {
         tpAleatorio.setOnAction(eventos.getTpAleatorio());
         tpSeguro.setOnAction(eventos.getTpSeguro());

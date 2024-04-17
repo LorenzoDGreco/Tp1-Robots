@@ -14,7 +14,7 @@ public class Jugador extends Entidad {
      * @param y coordenada y del jugador
      */
     public Jugador(int x, int y) {
-        super(x, y, new int[]{0,1,2,3,4});
+        super(x, y, new int[]{0,1,2,3});
         this.tpSeguros = 1;
     }
 
