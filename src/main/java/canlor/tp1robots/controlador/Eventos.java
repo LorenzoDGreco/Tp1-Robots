@@ -7,6 +7,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.TimerTask;
 
+/**
+ * Representa los handlers de los eventos para la aplicacion
+ * Contiene handlers para los eventos que puedan sucedes: redimensionar, teleportar aleatoriamente, teleportar seguro, esperar, reiniciar, click del mouse, teclado y timer
+ */
 public class Eventos {
     private EventHandler<ActionEvent> redimensionar;
     private EventHandler<ActionEvent> tpAleatorio;
