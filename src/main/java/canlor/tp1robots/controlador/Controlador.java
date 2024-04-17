@@ -4,6 +4,8 @@ import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.TimerTask;
 
@@ -25,22 +27,7 @@ public class Controlador {
         eventos = new Eventos();
 
         eventos.setRedimensionar(_ -> {
-            String[] espacio = vista.getRedimensiones();
-            try {
-                int valor1 = Integer.parseInt(espacio[0]);
-                int valor2 = Integer.parseInt(espacio[1]);
-                if (valor1 < 10 || valor2 < 10) {
-                    vista.setErrorLabel("Ingrese valores >=10");
-                    return;
-                }
-                modelo.redimensionar(Integer.parseInt(espacio[0]), Integer.parseInt(espacio[1]));
-                modelo.reiniciar();
-                vista.redimensionar();
-                vista.actualizar();
-            } catch (NumberFormatException e) {
-                vista.setErrorLabel("Ingrese valores numéricos");
-            }
-
+            eventoRedimensionar();
         });
 
         eventos.setTpAleatorio(_ -> {
@@ -63,62 +50,82 @@ public class Controlador {
             vista.actualizar();
         });
 
-        eventos.setMouseClick(e -> {
-            int columna = (int) (e.getX() / 16);
-            int fila = (int) (e.getY() / 16);
+        eventos.setMouseClick(this::eventoMouseClick);
 
-            modelo.mover(fila, columna);
-            vista.actualizar();
-        });
-
-        eventos.setTeclado(event -> {
-            KeyCode key = event.getCode();
-            switch (key) {
-                case W:
-                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY());
-                    break;
-                case Q:
-                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() - 1);
-                    break;
-                case E:
-                    modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() + 1);
-                    break;
-                case A:
-                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() - 1);
-                    break;
-                case S:
-                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
-                    break;
-                case D:
-                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() + 1);
-                    break;
-                case Z:
-                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() - 1);
-                    break;
-                case X:
-                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY());
-                    break;
-                case C:
-                    modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() + 1);
-                    break;
-                case R:
-                    modelo.reiniciar();
-                    break;
-            }
-            vista.actualizar();
-        });
+        eventos.setTeclado(this::eventoTeclado);
 
         eventos.setTimer(new TimerTask() {
             @Override
             public void run() {
                 modelo.cambiarImagen();
-
-                Platform.runLater(() -> vista.actualizar());
-
+                Platform.runLater(vista::actualizarAnimaciones);
             }
         });
 
         vista.crearEventos(eventos);
+    }
+
+    public void eventoRedimensionar() {
+        String[] espacio = vista.getRedimensiones();
+        try {
+            int valor1 = Integer.parseInt(espacio[0]);
+            int valor2 = Integer.parseInt(espacio[1]);
+            if (valor1 < 10 || valor2 < 10) {
+                vista.setErrorLabel("Ingrese valores >=10");
+                return;
+            }
+            modelo.redimensionar(Integer.parseInt(espacio[0]), Integer.parseInt(espacio[1]));
+            modelo.reiniciar();
+            vista.redimensionar();
+            vista.actualizar();
+        } catch (NumberFormatException e) {
+            vista.setErrorLabel("Ingrese valores numéricos");
+        }
+    }
+
+    private void eventoMouseClick(MouseEvent e) {
+        int columna = (int) (e.getX() / 16);
+        int fila = (int) (e.getY() / 16);
+
+        modelo.mover(fila, columna);
+        vista.actualizar();
+    }
+
+    private void eventoTeclado(KeyEvent event) {
+        KeyCode key = event.getCode();
+        switch (key) {
+            case W:
+                modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY());
+                break;
+            case Q:
+                modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() - 1);
+                break;
+            case E:
+                modelo.mover(modelo.getJugadorX() - 1, modelo.getJugadorY() + 1);
+                break;
+            case A:
+                modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() - 1);
+                break;
+            case S:
+                modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
+                break;
+            case D:
+                modelo.mover(modelo.getJugadorX(), modelo.getJugadorY() + 1);
+                break;
+            case Z:
+                modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() - 1);
+                break;
+            case X:
+                modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY());
+                break;
+            case C:
+                modelo.mover(modelo.getJugadorX() + 1, modelo.getJugadorY() + 1);
+                break;
+            case R:
+                modelo.reiniciar();
+                break;
+        }
+        vista.actualizar();
     }
 }
 

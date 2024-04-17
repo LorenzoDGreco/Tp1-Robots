@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 /**
- * imagenes
- * animaciones
  * refactorizar juego
  * UML
  * documentacion
@@ -93,10 +91,17 @@ public class Juego {
             if (tpSeguroActivado) {
                 TpSeguro(x, y);
             } else {
-                moverJugador(x, y);
-                moverRobots();
+                if(posicionesValidas(x, y)) {
+                    moverJugador(x, y);
+                    moverRobots();
+                }
+
             }
         });
+    }
+
+    private boolean posicionesValidas(int x, int y) {
+        return x >= 0 && y >= 0 && x < dimension[0] && y < dimension[1];
     }
 
     private void moverJugador(int x, int y) {

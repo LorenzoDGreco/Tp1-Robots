@@ -60,6 +60,10 @@ public class RobotsView {
         menuOpciones.setNivelLabel();
     }
 
+    public void actualizarAnimaciones() {
+        tablero.reiniciar();
+    }
+
     public void crearEventos(Eventos eventos) {
         timer.scheduleAtFixedRate(eventos.getTimer(),0,200);
         scene.setOnKeyReleased(eventos.getTeclado());
