@@ -130,7 +130,6 @@ public class MenuOpciones {
     /**
      * Devuelve el boton aceptar
      * @param error mensaje de error
-     * @return Button boton aceptar
      */
     public void setErrorLabel(String error) {
         errorLabel.setText(error);
