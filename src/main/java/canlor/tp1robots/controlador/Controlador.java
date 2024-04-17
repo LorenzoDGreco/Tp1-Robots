@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 /**
  * Representa al controllador del juego Robots
- * Gestiona (handles) los eventos de la interfaz y actualiza el modelo y la vista
+ * Gestiona cambios en el modelo y en la vista dados por el input del usuario
  */
 public class Controlador {
 
