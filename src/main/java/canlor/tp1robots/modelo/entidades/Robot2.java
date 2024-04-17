@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Robot2 extends Entidad {
 
     public Robot2(int x, int y) {
-        super(x, y);
+        super(x, y, new int[]{9,10,11,12});
     }
 
     @Override

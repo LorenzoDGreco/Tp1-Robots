@@ -33,6 +33,7 @@ public class Controlador {
                 modelo.redimensionar(Integer.parseInt(espacio[0]), Integer.parseInt(espacio[1]));
                 modelo.reiniciar();
                 vista.redimensionar();
+                vista.actualizar();
             } catch (NumberFormatException e) {
                 vista.setErrorLabel("Ingrese valores numéricos");
             }
@@ -102,8 +103,13 @@ public class Controlador {
                     break;
             }
             vista.actualizar();
-
         });
+
+        /*eventos.setTimer(_ -> {
+                //A cada 1seg cambiar imagen
+                modelo.cambiarImagen();
+                vista.actualizar();
+        });*/
 
         vista.crearEventos(eventos);
     }

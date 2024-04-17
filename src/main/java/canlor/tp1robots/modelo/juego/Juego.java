@@ -4,7 +4,6 @@ import canlor.tp1robots.modelo.entidades.*;
 
 import java.util.*;
 
-
 /**
  * imagenes
  * animaciones
@@ -12,7 +11,6 @@ import java.util.*;
  * UML
  * documentacion
  * tomar birrita mientras se llora por el 2 del parcial
- *
  */
 
 public class Juego {

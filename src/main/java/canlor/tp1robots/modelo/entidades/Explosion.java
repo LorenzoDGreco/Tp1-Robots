@@ -13,7 +13,7 @@ public class Explosion extends Entidad {
      * @param y coordenada y de la explosion
      */
     public Explosion(int x, int y) {
-        super(x, y);
+        super(x, y, new int[]{13});
     }
 
     /**

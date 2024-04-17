@@ -6,10 +6,17 @@ import canlor.tp1robots.modelo.entidades.Explosion;
 import canlor.tp1robots.modelo.entidades.Robot1;
 import canlor.tp1robots.modelo.entidades.Robot2;
 import canlor.tp1robots.modelo.juego.Juego;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Tablero {

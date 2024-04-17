@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Entidad {
     private HojaSprite hs;
     private BufferedImage[] fotosEntidad;
+    private int indiceImagen;
 
     private final int[] posicion;
     private boolean activo;
@@ -21,11 +22,15 @@ public class Entidad {
      * Contruye una entidad dada su posicion y su tipo
      * @param x la coordenada de la entidad
      * @param y la coordenada de la entidad
+     * @param posImagenes un array de las posiciones de las imagenes a procesar
      */
-    public Entidad(int x, int y) {
+    public Entidad(int x, int y, int[] posImagenes) {
         hs = new HojaSprite();
         posicion = new int[]{x, y};
         activo = true;
+        indiceImagen = 0;
+
+        cargarImagenes(posImagenes);
     }
 
     /**
@@ -52,8 +57,18 @@ public class Entidad {
         return (getX() == x && getY() == y);
     }
 
-    protected void cargarImagenes(int[] imagenes) {
-        fotosEntidad = hs.getSprites(imagenes);
+    private void cargarImagenes(int[] posImagenes) {
+        fotosEntidad = hs.getSprites(posImagenes);
+    }
+
+    public void cambiarImagen() {
+        int posicionesTotales = fotosEntidad.length - 1;
+        indiceImagen++;
+        if (indiceImagen > posicionesTotales) { indiceImagen = 0; }
+    }
+
+    public BufferedImage getImagen() {
+        return fotosEntidad[indiceImagen];
     }
 
     /**
