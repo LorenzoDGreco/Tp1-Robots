@@ -56,27 +56,17 @@ public class Tablero {
     public void actualizarPosiciones() {
         ArrayList<Entidad> enemigos = modelo.getEnemigos();
 
-        Image imagenJugador = convertToJavaFXImage(modelo.getImagenJugador());
-        ImageView imagenVistaJugador = new ImageView(imagenJugador);
-
-        gp.add(imagenVistaJugador, modelo.getJugadorY(), modelo.getJugadorX());
-
         for (Entidad entidad : enemigos) {
 
             Image imagenEntidad = convertToJavaFXImage(entidad.getImagen());
             ImageView imagenVistaEntidad = new ImageView(imagenEntidad);
             gp.add(imagenVistaEntidad, entidad.getY(), entidad.getX());
-
-            //provisional...
-            /*
-            if (entidad instanceof Explosion) {
-                gp.add(new Rectangle(10, 10, Color.RED), entidad.getY(), entidad.getX());
-            } else if (entidad instanceof Robot2) {
-                gp.add(new Rectangle(10, 10, Color.BROWN), entidad.getY(), entidad.getX());
-            } else if (entidad instanceof Robot1) {
-                gp.add(new Rectangle(10, 10, Color.DARKGRAY), entidad.getY(), entidad.getX());
-            }*/
         }
+
+        Image imagenJugador = convertToJavaFXImage(modelo.getImagenJugador());
+        ImageView imagenVistaJugador = new ImageView(imagenJugador);
+
+        gp.add(imagenVistaJugador, modelo.getJugadorY(), modelo.getJugadorX());
     }
 
     private Image convertToJavaFXImage(BufferedImage bufferedImage) {

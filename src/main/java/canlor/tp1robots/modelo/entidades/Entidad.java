@@ -62,9 +62,16 @@ public class Entidad {
     }
 
     public void cambiarImagen() {
-        int posicionesTotales = fotosEntidad.length - 1;
+        if (!isActivo()){
+            indiceImagen = 4;
+            return;
+        }
+        int fotosLength = fotosEntidad.length - 1;
+        if (fotosLength > 3) {
+            fotosLength--;
+        }
         indiceImagen++;
-        if (indiceImagen > posicionesTotales) { indiceImagen = 0; }
+        if (indiceImagen > fotosLength) { indiceImagen = 0; }
     }
 
     public BufferedImage getImagen() {
