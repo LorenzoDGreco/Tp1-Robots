@@ -9,17 +9,30 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.TimerTask;
 
+/**
+ * Representa al controllador del juego Robots
+ * Gestiona (handles) los eventos de la interfaz y actualiza el modelo y la vista
+ */
 public class Controlador {
 
     private final Juego modelo;
     private final RobotsView vista;
     private Eventos eventos;
 
+    /**
+     * Constructor para el controlador
+     * @param modelo modelo del juego iniciado
+     * @param vista vista del juego iniciado
+     */
     public Controlador(Juego modelo, RobotsView vista) {
         this.modelo = modelo;
         this.vista = vista;
     }
 
+    /**
+     * Inicia el juego
+     * Setea los handlers para los eventos de la vista
+     */
     public void iniciar() {
         modelo.iniciar();
         vista.actualizar();
@@ -65,6 +78,9 @@ public class Controlador {
         vista.crearEventos(eventos);
     }
 
+    /**
+     * Maneja evento de redimensionar el tablero
+     */
     public void eventoRedimensionar() {
         String[] espacio = vista.getRedimensiones();
         try {
@@ -83,6 +99,10 @@ public class Controlador {
         }
     }
 
+    /**
+     * Maneja evento de click del mouse
+     * @param e MouseEvent de click del mouse
+     */
     private void eventoMouseClick(MouseEvent e) {
         int columna = (int) (e.getX() / 16);
         int fila = (int) (e.getY() / 16);
@@ -91,6 +111,10 @@ public class Controlador {
         vista.actualizar();
     }
 
+    /**
+     * Maneja evento de teclado
+     * @param event KeyEvent de teclado
+     */
     private void eventoTeclado(KeyEvent event) {
         KeyCode key = event.getCode();
         switch (key) {

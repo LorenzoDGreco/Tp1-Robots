@@ -2,9 +2,6 @@ package canlor.tp1robots.view;
 
 import canlor.tp1robots.controlador.Eventos;
 import canlor.tp1robots.modelo.entidades.Entidad;
-import canlor.tp1robots.modelo.entidades.Explosion;
-import canlor.tp1robots.modelo.entidades.Robot1;
-import canlor.tp1robots.modelo.entidades.Robot2;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,11 +16,21 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Representa el tablero del juego Robots
+ * Contiene metodos para inicializar el tablero, actualizarlo y crear eventos
+ */
 public class Tablero {
     private final Juego modelo;
     private final GridPane gp;
     private int[] dimension;
 
+    /**
+     * Constructor del tablero. Inicializa el tablero con las dimensiones dadas
+     * @param x cantidad de filas del tablero
+     * @param y cantidad de columnas del tablero
+     * @param modelo modelo del juego que se esta jugando
+     */
     public Tablero(int x, int y, Juego modelo) {
         gp = new GridPane();
         this.modelo = modelo;
@@ -32,7 +39,9 @@ public class Tablero {
         inicializarTablero();
     }
 
-
+    /**
+     * Inicializa el tablero con las dimensiones dadas
+     */
     private void inicializarTablero() {
         Color color;
         for (int i = 0; i < dimension[0]; i++) {  //Si se redimensiona al reves cambiar esto
@@ -48,11 +57,17 @@ public class Tablero {
         }
     }
 
+    /**
+     * Actualiza las dimensiones del tablero
+     */
     public void actualizarDimension(int[] nueva) {
         dimension = nueva;
         reiniciar();
     }
 
+    /**
+     * Actualiza visualmente las posiciones de los robots y el jugador en el tablero
+     */
     public void actualizarPosiciones() {
         ArrayList<Entidad> enemigos = modelo.getEnemigos();
 
@@ -69,6 +84,11 @@ public class Tablero {
         gp.add(imagenVistaJugador, modelo.getJugadorY(), modelo.getJugadorX());
     }
 
+    /**
+     * Convierte una BufferedImage a una Image de JavaFX
+     * @param bufferedImage imagen a convertir
+     * @return Image de JavaFX
+     */
     private Image convertToJavaFXImage(BufferedImage bufferedImage) {
         try {
             // Convertir BufferedImage a bytes
@@ -84,16 +104,27 @@ public class Tablero {
         }
     }
 
+    /**
+     * Reinicia el tablero manteniendo las mismas dimensiones
+     */
     public void reiniciar() {
         gp.getChildren().clear();
         inicializarTablero();
         actualizarPosiciones();
     }
 
+    /**
+     * Crea el evento de click en el tablero
+     * @param eventos eventos que se van a crear
+     */
     public void crearEvento(Eventos eventos) {
         gp.setOnMouseClicked(eventos.getMouseClick());
     }
 
+    /**
+     * Devuelve el GridPane del tablero
+     * @return GridPane del tablero
+     */
     public GridPane getTablero() {
         return gp;
     }

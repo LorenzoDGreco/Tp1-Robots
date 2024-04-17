@@ -57,23 +57,34 @@ public class Entidad {
         return (getX() == x && getY() == y);
     }
 
+    /**
+     * Dada las posiciones de las imagenes a procesar, carga las imagenes en el array de imagenes de la entidad
+     * @param posImagenes un array imagenes a procesar
+     */
     private void cargarImagenes(int[] posImagenes) {
         fotosEntidad = hs.getSprites(posImagenes);
     }
 
+    /**
+     * Cambia el indice que indica la imagen actual de la entidad.
+     */
     public void cambiarImagen() {
         if (!isActivo()){
             indiceImagen = 4;
             return;
         }
         int fotosLength = fotosEntidad.length - 1;
-        if (fotosLength > 3) {
+        if (fotosLength > 3) { // si se esta cambiando la imagen del jugador que tiene 5 en vez de 4 como  los otros
             fotosLength--;
         }
-        indiceImagen++;
+        indiceImagen++; // va a la siguiente en el array asociado a la entidad
         if (indiceImagen > fotosLength) { indiceImagen = 0; }
     }
 
+    /**
+     * Devuelve la imagen actual de la entidad
+     * @return la imagen de la entidad
+     */
     public BufferedImage getImagen() {
         return fotosEntidad[indiceImagen];
     }
@@ -88,7 +99,7 @@ public class Entidad {
 
     /**
      * Establece la coordenada x de la entidad
-     * @param posicion
+     * @param posicion la coordenada x de la entidad
      */
     public void setX(int posicion) {
         this.posicion[0] = posicion;
@@ -104,7 +115,7 @@ public class Entidad {
 
     /**
      * Establece coordenada y de la entidad
-     * @param posicion
+     * @param posicion la coordenada y de la entidad
      */
     public void setY(int posicion) {
         this.posicion[1] = posicion;
@@ -120,7 +131,7 @@ public class Entidad {
 
     /**
      * Establece estado de actividad de la entidad: se activa o se desactiva
-     * @param activo
+     * @param activo el estado de actividad de la entidad
      */
     public void setActivo(boolean activo) {
         this.activo = activo;
