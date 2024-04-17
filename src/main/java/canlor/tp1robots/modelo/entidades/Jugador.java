@@ -18,10 +18,18 @@ public class Jugador extends Entidad {
         this.tpSeguros = 1;
     }
 
+    /**
+     * Devuelve la cantidad de teletransportes seguros que tiene el jugador
+     * @return int cantidad de teletransportes seguros
+     */
     public int getTpSeguros() {
         return tpSeguros;
     }
 
+    /**
+     * Setea la cantidad de teletransportes seguros que tiene el jugador
+     * @param tpSeguros cantidad de teletransportes seguros
+     */
     public void setTpSeguros(int tpSeguros) {
         this.tpSeguros = tpSeguros;
     }

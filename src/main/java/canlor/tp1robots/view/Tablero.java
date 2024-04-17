@@ -59,14 +59,36 @@ public class Tablero {
         gp.add(new Rectangle(10, 10, Color.YELLOW), modelo.getJugadorY(), modelo.getJugadorX());
 
         for (Entidad entidad : enemigos) {
+
+            Image image = convertToJavaFXImage(entidad.getImagen());
+            ImageView imageView = new ImageView(image);
+            gp.add(imageView, entidad.getY(), entidad.getX());
+
+
             //provisional...
+            /*
             if (entidad instanceof Explosion) {
                 gp.add(new Rectangle(10, 10, Color.RED), entidad.getY(), entidad.getX());
             } else if (entidad instanceof Robot2) {
                 gp.add(new Rectangle(10, 10, Color.BROWN), entidad.getY(), entidad.getX());
             } else if (entidad instanceof Robot1) {
                 gp.add(new Rectangle(10, 10, Color.DARKGRAY), entidad.getY(), entidad.getX());
-            }
+            }*/
+        }
+    }
+
+    private Image convertToJavaFXImage(BufferedImage bufferedImage) {
+        try {
+            // Convertir BufferedImage a bytes
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            byte[] bytes = baos.toByteArray();
+
+            // Convertir bytes a Image de JavaFX
+            return new Image(new ByteArrayInputStream(bytes));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
