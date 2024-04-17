@@ -29,6 +29,10 @@ public class MenuOpciones {
     private Text errorLabel;
     private Stage stage;
 
+    /**
+     * Constructor para MenuOpciones, ademas muestra el nivel actual en la barra de menu
+     * @param modelo modelo del juego que se esta jugando
+     */
     public MenuOpciones(Juego modelo) {
         this.modelo = modelo;
         menuBar = new MenuBar();
@@ -44,11 +48,15 @@ public class MenuOpciones {
         menuBar.getMenus().add(nivel);
     }
 
+    /**
+     * Crea el menu de opciones
+     * @return Menu devuelve el menu creado
+     */
     private javafx.scene.control.Menu createMenu() {
         Menu menu = new Menu("Opciones");
 
         MenuItem dimensionItem = new MenuItem("Elegir dimension");
-        dimensionItem.setOnAction(e -> {
+        dimensionItem.setOnAction(_ -> {
             stage = new Stage();
 
             VBox popupMenu = new VBox();
@@ -103,29 +111,52 @@ public class MenuOpciones {
         return menu;
     }
 
+    /**
+     * Crea eventos para el menu de opciones
+     * @param eventos eventos que se van a crear
+     */
     public void crearEvento(Eventos eventos) {
         aceptar.setOnAction(eventos.getRedimensionar());
         restart.setOnAction(eventos.getReiniciar());
     }
 
+    /**
+     * Cierra la ventana de dimensiones
+     */
     public void cerrarVentana() {
         stage.close();
     }
 
+    /**
+     * Devuelve el boton aceptar
+     * @param error mensaje de error
+     * @return Button boton aceptar
+     */
     public void setErrorLabel(String error) {
         errorLabel.setText(error);
     }
 
+    /**
+     * Setea la etiqueta de nivel con el nivel actual
+     */
     public void setNivelLabel() {
         menuBar.getMenus().remove(nivel);
         this.nivel = new Menu("Nivel: " + modelo.getNivel());
         menuBar.getMenus().add(nivel);
     }
 
+    /**
+     * Devuelve el menuBar
+     * @return MenuBar menuBar
+     */
     public MenuBar getMenuBar() {
         return menuBar;
     }
 
+    /**
+     * Devuelve las dimensiones ingresadas
+     * @return String[] dimensiones ingresadas
+     */
     public String[] getRedimensiones() {
         return new String[]{filas.getText(), columnas.getText()};
     }
