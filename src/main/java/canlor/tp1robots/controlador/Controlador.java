@@ -31,13 +31,13 @@ public class Controlador {
         });
 
         eventos.setTpAleatorio(_ -> {
-            modelo.TpAleatorio();
+            modelo.tpAleatorio();
             vista.actualizar();
         });
 
 
         eventos.setTpSeguro(_ -> {
-            modelo.activarTpSeguro();
+            modelo.tpSeguro();
         });
 
         eventos.setEsperar(_ -> {
