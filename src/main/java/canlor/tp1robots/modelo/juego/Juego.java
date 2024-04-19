@@ -6,6 +6,7 @@ import canlor.tp1robots.modelo.entidades.Jugador;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+
 public class Juego {
     private Estado estado;
     private Movimiento movimiento;

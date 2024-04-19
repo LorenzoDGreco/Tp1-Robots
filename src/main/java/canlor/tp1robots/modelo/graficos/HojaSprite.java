@@ -12,7 +12,6 @@ public class HojaSprite {
 
     private BufferedImage hojaSprite;
 
-
     public HojaSprite() {
         try {
             this.hojaSprite = ImageIO.read(new File(PATH));
