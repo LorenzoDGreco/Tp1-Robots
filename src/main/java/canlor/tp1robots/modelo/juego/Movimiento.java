@@ -9,17 +9,32 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Clase que se encarga de mover a los enemigos y al jugador, y de verificar las colisiones.
+ * Comprende al total de Juego. Se le delega los movimientos de las entidades del tablero.
+ * Contiene una lista de enemigos, una referencia al jugador y al estado del juego.
+ */
 public class Movimiento {
     ArrayList<Entidad> enemigos;
     Jugador jugador;
     Estado estado;
 
+    /**
+     * Constructor de la instancia de Movimiento
+     * @param enemigos ArrayList que contiene a los enemigos
+     * @param jugador Entidad que representa al jugador
+     * @param estado Instancia de Estado
+     */
     public Movimiento(ArrayList<Entidad> enemigos, Jugador jugador, Estado estado) {
         this.enemigos = enemigos;
         this.jugador = jugador;
         this.estado = estado;
     }
 
+    /**
+     * Mueve al jugador y a los enemigos, antes chequea si las coordenadas son validas
+     * @param coords coordenadas a las que mover al jugador
+     */
     public void moverTodo(int[] coords) {
         if (posicionesValidas(coords)) {
             jugador(coords);
@@ -27,6 +42,9 @@ public class Movimiento {
         }
     }
 
+    /**
+     * Mueve a los enemigos y chequea las colisiones
+     */
     public void robots() {
         for (Entidad entidad : enemigos) {
             entidad.moverse(jugador.getX(), jugador.getY(), enemigos);
@@ -34,16 +52,27 @@ public class Movimiento {
         colision();
     }
 
+    /**
+     * Mueve al jugador
+     * @param coords coordenadas hacia las que mover al jugador
+     */
     public void jugador(int[] coords) {
         jugador.moverse(coords[0], coords[1], enemigos);
     }
 
+    /**
+     * Le realiza un teletransporte al jugador y mueve a los enemigos hacia la nueva direccion
+     * @param coords coordenadas a las que teletransportar al jugador
+     */
     public void jugadorTP(int[] coords) {
         jugador.setX(coords[0]);
         jugador.setY(coords[1]);
         robots();
     }
 
+    /**
+     * Verifica las colisiones entre los enemigos y el jugador, y entre los enemigos entre si
+     */
     public void colision() {
         List<Entidad> entidadesAQuitar = new ArrayList<>();
         List<Explosion> explosionesAñadir = new ArrayList<>();
@@ -79,6 +108,11 @@ public class Movimiento {
         enemigos.addAll(explosionesAñadir);
     }
 
+    /**
+     * Verifica si las coordenadas son validas
+     * @param coords coordenadas a verificar
+     * @return true si las coordenadas son validas, false en caso contrario
+     */
     private boolean posicionesValidas(int[] coords) {
         return coords[0] >= 0 && coords[1] >= 0 && coords[0] < estado.getDimension()[0] && coords[1] < estado.getDimension()[1];
     }
