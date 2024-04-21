@@ -73,9 +73,9 @@ public class Movimiento {
     /**
      * Verifica las colisiones entre los enemigos y el jugador, y entre los enemigos entre si
      */
-    public void colision() {
+    private void colision() {
         List<Entidad> entidadesAQuitar = new ArrayList<>();
-        List<Explosion> explosionesAñadir = new ArrayList<>();
+        List<Explosion> explosionesAniadir = new ArrayList<>();
         Set<String> posicionesExplosiones = new HashSet<>();
 
         for (int i = 0; i < enemigos.size(); i++) {
@@ -96,7 +96,7 @@ public class Movimiento {
                         entidadesAQuitar.add(enemigo1);
                         entidadesAQuitar.add(enemigo2);
 
-                        explosionesAñadir.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
+                        explosionesAniadir.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
 
                         posicionesExplosiones.add(posicionExplosion);
                     }
@@ -105,7 +105,7 @@ public class Movimiento {
         }
 
         enemigos.removeAll(entidadesAQuitar);
-        enemigos.addAll(explosionesAñadir);
+        enemigos.addAll(explosionesAniadir);
     }
 
     /**

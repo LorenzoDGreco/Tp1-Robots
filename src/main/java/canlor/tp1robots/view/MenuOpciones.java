@@ -19,6 +19,8 @@ import javafx.stage.Stage;
  * Contiene metodos para crear el menu, manejar eventos,
  */
 public class MenuOpciones {
+    private final int[] COLOR_MENU = new int[]{245,243,243};
+
     private final Juego modelo;
     private final MenuBar menuBar;
     private final MenuItem restart;
@@ -37,7 +39,7 @@ public class MenuOpciones {
         this.modelo = modelo;
         menuBar = new MenuBar();
         menuBar.setUseSystemMenuBar(true);
-        menuBar.setBackground(Background.fill(Color.rgb(243, 243, 243)));
+        menuBar.setBackground(Background.fill(Color.rgb(COLOR_MENU[0], COLOR_MENU[1], COLOR_MENU[2])));
         aceptar = new Button("Aceptar");
         restart = new MenuItem("Reinciar");
 
@@ -52,7 +54,7 @@ public class MenuOpciones {
      * Crea el menu de opciones
      * @return Menu devuelve el menu creado
      */
-    private javafx.scene.control.Menu createMenu() {
+    private Menu createMenu() {
         Menu menu = new Menu("Opciones");
 
         MenuItem dimensionItem = new MenuItem("Elegir dimension");

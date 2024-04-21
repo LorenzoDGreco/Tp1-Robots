@@ -7,7 +7,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private final int FILAS = 30;
+    private final int COLUMNAS = 45;
     private RobotsView vista;
+
 
     /**
      * Inicializa la aplicacion Robots
@@ -16,12 +19,8 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        // filas y columnas iniciales
-        int filas = 30;
-        int columnas = 45;
-
-        Juego modelo = new Juego(filas, columnas);
-        vista = new RobotsView(stage, modelo, filas, columnas);
+        Juego modelo = new Juego(FILAS, COLUMNAS);
+        vista = new RobotsView(stage, modelo, FILAS, COLUMNAS);
         Controlador controlador = new Controlador(modelo, vista);
         controlador.iniciar();
     }
