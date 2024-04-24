@@ -13,6 +13,10 @@ import java.util.ArrayList;
  * Ademas inicializa a la Entidad Jugador y a un ArrayList que contiene a los enemigos
  */
 public class Juego {
+    private final int TILE = 16;
+    private final int MENU = 20;
+    private final int BOTONES = 165;
+
     private Estado estado;
     private Movimiento movimiento;
     private Tps tps;
@@ -130,8 +134,8 @@ public class Juego {
      * @return int[] (ancho y alto) tamanio total de la ventana
      */
     public int[] getTamanioTotal() {
-        int width = 16 + (estado.getDimension()[1] * 16);
-        int height = 20 + 165 + (estado.getDimension()[0] * 16);
+        int width = TILE + (estado.getDimension()[1] * TILE);
+        int height = MENU + BOTONES + (estado.getDimension()[0] * TILE);
         return new int[]{width, height};
     }
 

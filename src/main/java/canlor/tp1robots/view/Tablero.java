@@ -21,6 +21,10 @@ import java.util.ArrayList;
  * Contiene metodos para inicializar el tablero, actualizarlo y crear eventos
  */
 public class Tablero {
+    private final int[] COLOR_CASILLA1 = new int[]{251, 205, 231};
+    private final int[] COLOR_CASILLA2 = new int[]{255, 228, 243};
+    private final int TILE = 16;
+
     private final Juego modelo;
     private final GridPane gp;
     private int[] dimension;
@@ -47,11 +51,11 @@ public class Tablero {
         for (int i = 0; i < dimension[0]; i++) {  //Si se redimensiona al reves cambiar esto
             for (int j = 0; j < dimension[1]; j++) {
                 if ((i + j) % 2 == 0) {
-                    color = Color.rgb(243, 166, 212);
+                    color = Color.rgb(COLOR_CASILLA1[0], COLOR_CASILLA1[1], COLOR_CASILLA1[2]);
                 } else {
-                    color = Color.rgb(230, 137, 193);
+                    color = Color.rgb(COLOR_CASILLA2[0], COLOR_CASILLA2[1], COLOR_CASILLA2[2]);
                 }
-                Rectangle rect = new Rectangle(16, 16, color);
+                Rectangle rect = new Rectangle(TILE, TILE, color);
                 gp.add(rect, j, i);
             }
         }
