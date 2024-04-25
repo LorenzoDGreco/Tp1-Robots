@@ -24,24 +24,11 @@ public class Robot2 extends Entidad {
      */
     @Override
     public void moverse(int x, int y, ArrayList<Entidad> enemigos) {
-        darUnPaso(x, y);
+        super.moverse(x, y, enemigos);
 
         if (!huboColision(getX(), getY(), enemigos)) {
-            darUnPaso(x, y);
+            super.moverse(x, y, enemigos);
         }
-    }
-
-    /**
-     * Mueve al robot un paso hacia las coordenadas x e y dadas.
-     * @param x coordenadas x hacia la que se mueve
-     * @param y coordenadas y hacia la que se mueve
-     */
-    private void darUnPaso(int x, int y) {
-        int dx = Integer.compare(x, getX());
-        int dy = Integer.compare(y, getY());
-
-        setX(getX() + dx);
-        setY(getY() + dy);
     }
 
     /**
