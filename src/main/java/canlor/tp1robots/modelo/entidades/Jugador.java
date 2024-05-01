@@ -6,6 +6,7 @@ package canlor.tp1robots.modelo.entidades;
  */
 public class Jugador extends Entidad {
     private int tpSeguros;
+    private int puntos;
 
     /**
      * Contruye a un jugador en las coordenadas x e y dadas.
@@ -14,8 +15,9 @@ public class Jugador extends Entidad {
      * @param y coordenada y del jugador
      */
     public Jugador(int x, int y) {
-        super(x, y, new int[]{0,1,2,3,4});
+        super(x, y, new int[]{0,1,2,3,4}, 0);
         this.tpSeguros = 1;
+        this.puntos = 0;
     }
 
     /**
@@ -33,4 +35,17 @@ public class Jugador extends Entidad {
     public void setTpSeguros(int tpSeguros) {
         this.tpSeguros = tpSeguros;
     }
+
+    public int getPuntos() {
+        return puntos;
+    }
+
+    public void addPuntos(int puntos) {
+        this.puntos += puntos;
+    }
+
+    public void resetPuntos() {
+        puntos = 0;
+    }
+
 }

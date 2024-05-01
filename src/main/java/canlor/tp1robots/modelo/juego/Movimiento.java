@@ -71,41 +71,73 @@ public class Movimiento {
     }
 
     /**
-     * Verifica las colisiones entre los enemigos y el jugador, y entre los enemigos entre si
+     * Verifica las colisiones entre los enemigos y el jugador, y de los enemigos entre si
      */
     private void colision() {
         List<Entidad> entidadesAQuitar = new ArrayList<>();
-        List<Explosion> explosionesAniadir = new ArrayList<>();
-        Set<String> posicionesExplosiones = new HashSet<>();
+        List<Entidad> explosionesAniadir = new ArrayList<>();
+        int nuevos_puntos = 0;
 
+        chequearColisionJugadorEnemigo();
+        chequearColisionEnemigoEnemigo(entidadesAQuitar, explosionesAniadir);
+
+        for (Entidad enemigo : entidadesAQuitar) {
+            nuevos_puntos += enemigo.getPuntosQueDa();
+        }
+        jugador.addPuntos(nuevos_puntos);
+        enemigos.removeAll(entidadesAQuitar);
+        enemigos.addAll(explosionesAniadir);
+    }
+
+    /**
+     * Chequea si hubo colision entre Jugador y algun enemigo
+     * Si hubo una colision con el jugador, lo desactiva
+     */
+    private void chequearColisionJugadorEnemigo() {
+        for (Entidad enemigo : enemigos) {
+            if (jugador.huboColision(enemigo.getX(), enemigo.getY())) {
+                jugador.setActivo(false);
+                jugador.resetPuntos();
+            }
+        }
+    }
+
+    /**
+     * Chequea colisiones entre enemigos.
+     * Si hubo una colision se guarda la posicion donde ocurrio
+     * @param entidadesAQuitar
+     * @param explosionesAniadir
+     */
+    private void chequearColisionEnemigoEnemigo(List<Entidad> entidadesAQuitar, List<Entidad> explosionesAniadir) {
+        List<String> posicionesExplosiones = new ArrayList<>();
         for (int i = 0; i < enemigos.size(); i++) {
             Entidad enemigo1 = enemigos.get(i);
-
-            if (jugador.huboColision(enemigo1.getX(), enemigo1.getY())) {
-                jugador.setActivo(false);
-            }
-
             for (int j = i + 1; j < enemigos.size(); j++) {
                 Entidad enemigo2 = enemigos.get(j);
-
                 if (enemigo1.huboColision(enemigo2.getX(), enemigo2.getY())) {
-                    String posicionExplosion = enemigo1.getX() + "," + enemigo1.getY();
-
-                    if (!posicionesExplosiones.contains(posicionExplosion)) {
-
-                        entidadesAQuitar.add(enemigo1);
-                        entidadesAQuitar.add(enemigo2);
-
-                        explosionesAniadir.add(new Explosion(enemigo1.getX(), enemigo1.getY()));
-
-                        posicionesExplosiones.add(posicionExplosion);
-                    }
+                    String pos = enemigo1.getX() + "," + enemigo2.getY();
+                    chequearNuevaExplosion(enemigo1, enemigo2, posicionesExplosiones, entidadesAQuitar, explosionesAniadir, pos);
                 }
             }
         }
+    }
 
-        enemigos.removeAll(entidadesAQuitar);
-        enemigos.addAll(explosionesAniadir);
+    /**
+     * Agrega una nueva explosion si fue una colision robot-robot
+     * @param enemigo1 Entidad enemiga que colisiono
+     * @param enemigo2 Entidad enemiga que colisiono
+     * @param posicionesExplosiones String[] posiciones donde ocurrio una explosion
+     * @param entidadesAQuitar array de entidades a eliminar (entidades que colisionaron)
+     * @param explosionesAniadir array de explosiones a aniadir (nuevas explosiones que aniadir a this.enemigos)
+     * @param pos posicion donde se chequea por la nueva explosion
+     */
+    private void chequearNuevaExplosion(Entidad enemigo1, Entidad enemigo2, List<String> posicionesExplosiones, List<Entidad> entidadesAQuitar,List<Entidad> explosionesAniadir, String pos) {
+        if (!posicionesExplosiones.contains(pos)) { // si la explosion es nueva (no fue colision robot-explosion)
+            entidadesAQuitar.add(enemigo1);
+            entidadesAQuitar.add(enemigo2);
+            explosionesAniadir.add(new Explosion(enemigo1.getX(), enemigo2.getY()));
+            posicionesExplosiones.add(pos);
+        }
     }
 
     /**

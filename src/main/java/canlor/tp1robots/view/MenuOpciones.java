@@ -26,6 +26,7 @@ public class MenuOpciones {
     private final MenuItem restart;
     private final Button aceptar;
     private Menu nivel;
+    private Menu puntos;
     private TextField filas;
     private TextField columnas;
     private Text errorLabel;
@@ -47,7 +48,9 @@ public class MenuOpciones {
         menuBar.getMenus().add(menu);
 
         nivel = new Menu("Nivel: " + modelo.getNivel());
-        menuBar.getMenus().add(nivel);
+        puntos = new Menu("Puntos: " + modelo.getPuntosJugador());
+
+        menuBar.getMenus().addAll(nivel, puntos);
     }
 
     /**
@@ -161,4 +164,11 @@ public class MenuOpciones {
     public String[] getRedimensiones() {
         return new String[]{filas.getText(), columnas.getText()};
     }
+
+    public void updatePuntos() {
+        menuBar.getMenus().remove(puntos);
+        this.puntos = new Menu("Puntos: " + modelo.getPuntosJugador());
+        menuBar.getMenus().add(puntos);
+    }
+
 }

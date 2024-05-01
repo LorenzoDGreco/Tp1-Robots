@@ -171,4 +171,8 @@ public class Juego {
         return jugador.getImagen();
     }
 
+    public int getPuntosJugador() {
+        return jugador.getPuntos();
+    }
+
 }

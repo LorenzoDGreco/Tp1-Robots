@@ -13,7 +13,7 @@ public class Robot2 extends Entidad {
      * @param y coordenada y del robot
      */
     public Robot2(int x, int y) {
-        super(x, y, new int[]{9,10,11,12});
+        super(x, y, new int[]{9,10,11,12}, 30);
     }
 
     /**

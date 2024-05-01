@@ -5,7 +5,6 @@ import canlor.tp1robots.modelo.graficos.HojaSprite;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-
 /**
  * Representa a un entidad en el juego: jugador, robot1, robot2, explosion
  * Cada entidad tiene una posicion, un estado activo o inactivo y un tipo de entidad: 0:jugador, 1:robot1, 2:robot2, 3:explosion
@@ -17,6 +16,7 @@ public class Entidad {
 
     private final int[] posicion;
     private boolean activo;
+    private int puntosQueDa;
 
     /**
      * Contruye una entidad dada su posicion y su tipo
@@ -24,12 +24,12 @@ public class Entidad {
      * @param y la coordenada de la entidad
      * @param posImagenes un array de las posiciones de las imagenes a procesar
      */
-    public Entidad(int x, int y, int[] posImagenes) {
+    public Entidad(int x, int y, int[] posImagenes, int puntos) {
         hs = new HojaSprite();
         posicion = new int[]{x, y};
         activo = true;
         indiceImagen = 0;
-
+        puntosQueDa = puntos;
         cargarImagenes(posImagenes);
     }
 
@@ -135,6 +135,10 @@ public class Entidad {
      */
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public int getPuntosQueDa() {
+        return puntosQueDa;
     }
 }
 

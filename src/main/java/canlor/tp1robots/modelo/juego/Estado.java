@@ -40,6 +40,7 @@ public class Estado {
     public void reiniciar() {
         nivel = 1;
         jugador.setTpSeguros(1);
+        jugador.resetPuntos();
         iniciar();
     }
 

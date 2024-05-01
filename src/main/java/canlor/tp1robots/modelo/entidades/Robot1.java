@@ -2,7 +2,7 @@ package canlor.tp1robots.modelo.entidades;
 
 /**
  * Representa a un tipo de entidad Robot1.
- * Tiene posicion.
+ * Tiene posicion y una cantidad de puntos que da cuando muere.
  */
 public class Robot1 extends Entidad {
     /**
@@ -11,6 +11,7 @@ public class Robot1 extends Entidad {
      * @param y coordenadas y del robot1
      */
     public Robot1(int x, int y) {
-        super(x, y, new int[]{5,6,7,8});
+        super(x, y, new int[]{5,6,7,8}, 10);
     }
+
 }

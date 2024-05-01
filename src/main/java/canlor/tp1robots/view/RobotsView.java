@@ -75,6 +75,7 @@ public class RobotsView {
         tablero.reiniciar();
         botones.actualizarBoton();
         menuOpciones.setNivelLabel();
+        menuOpciones.updatePuntos();
     }
 
     /**
