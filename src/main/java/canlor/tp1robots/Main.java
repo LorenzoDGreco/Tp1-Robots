@@ -27,7 +27,6 @@ public class Main extends Application {
 
         modelo.iniciar();
         vista.iniciar();
-        vista.actualizar();
     }
 
     /**
@@ -36,7 +35,6 @@ public class Main extends Application {
      */
     @Override
     public void stop() {
-        // Detener el timer cuando la aplicación se cierra
         vista.detenerTimer();
     }
 
