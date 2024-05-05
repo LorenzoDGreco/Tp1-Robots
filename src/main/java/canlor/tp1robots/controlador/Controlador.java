@@ -18,6 +18,7 @@ public class Controlador {
 
     private final Juego modelo;
     private final RobotsView vista;
+    private boolean bucleEsperar;
 
     /**
      * Constructor para el controlador
@@ -27,17 +28,31 @@ public class Controlador {
     public Controlador(Juego modelo, RobotsView vista) {
         this.modelo = modelo;
         this.vista = vista;
+        bucleEsperar = false;
     }
 
+    /**
+     * Maneja el evento del TpAleatorio
+     */
     public void tpAleatorio() {
+        if (bucleEsperar) { return; }
+
         modelo.tpAleatorio();
         vista.actualizar();
     }
 
+    /**
+     * Maneja el evento del TpSeguro
+     */
     public void tpSeguro() {
+        if (bucleEsperar) { return; }
+
         modelo.tpSeguro();
     }
 
+    /**
+     * Maneja el evento de esperar a los robots
+     */
     public void esperar() {
         Task task = new Task() {
             @Override
@@ -47,13 +62,18 @@ public class Controlador {
                     Thread.sleep(300);
                     Platform.runLater(vista::actualizar);
                 }
+                bucleEsperar = false;
                 return null;
             }
         };
+        bucleEsperar = true;
         Thread thread = new Thread(task);
         thread.start();
     }
 
+    /**
+     * Maneja el evento de reiniciar la partida
+     */
     public void reiniciar() {
         modelo.reiniciar();
         vista.actualizar();
@@ -85,6 +105,8 @@ public class Controlador {
      * @param e MouseEvent de click del mouse
      */
     public void mouseClick(MouseEvent e) {
+        if (bucleEsperar) { return; }
+
         int columna = (int) (e.getX() / 16);
         int fila = (int) (e.getY() / 16);
 
@@ -97,6 +119,8 @@ public class Controlador {
      * @param event KeyEvent de teclado
      */
     public void teclado(KeyEvent event) {
+        if (bucleEsperar) { return; }
+
         KeyCode key = event.getCode();
         switch (key) {
             case W:
@@ -133,6 +157,10 @@ public class Controlador {
         vista.actualizar();
     }
 
+    /**
+     * Crea el evento para el timer que controla las animaciones
+     * @return TimerTask
+     */
     public TimerTask timer() {
         return new TimerTask() {
             @Override

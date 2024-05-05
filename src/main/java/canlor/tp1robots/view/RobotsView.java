@@ -41,6 +41,9 @@ public class RobotsView {
         this.columnas = columnas;
     }
 
+    /**
+     * Inicializa la pantalla principal
+     */
     public void iniciar() {
         stage.setTitle("Robots");
 
@@ -66,6 +69,10 @@ public class RobotsView {
         timer.scheduleAtFixedRate(controlador.timer(),0,200);
     }
 
+    /**
+     * Obtiene el controlador desde el main
+     * @param controlador
+     */
     public void getControlador(Controlador controlador) {
         this.controlador = controlador;
     }

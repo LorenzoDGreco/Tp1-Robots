@@ -171,10 +171,19 @@ public class Juego {
         return jugador.getImagen();
     }
 
+    /**
+     * Obtiene los puntos totales de la partida
+     * @return int de puntos
+     */
     public int getPuntosJugador() {
         return jugador.getPuntos();
     }
 
+    /**
+     * Verifica si la partida ha sido terminada para el
+     * bucle de esperar robots
+     * @return booleano que indica si termino la partida
+     */
     public boolean getTerminoPartida() {
         estado.terminoPartida();
         return estado.getEstadoPartida();

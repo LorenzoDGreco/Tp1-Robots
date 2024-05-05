@@ -137,6 +137,10 @@ public class Entidad {
         this.activo = activo;
     }
 
+    /**
+     * Representa los puntos que da al derrotar al enemigo
+     * @return int de puntos
+     */
     public int getPuntosQueDa() {
         return puntosQueDa;
     }

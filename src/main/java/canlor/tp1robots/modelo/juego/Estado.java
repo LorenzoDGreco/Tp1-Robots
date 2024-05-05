@@ -15,6 +15,7 @@ public class Estado {
     private int nivel;
     private boolean finalizada;
 
+
     private ArrayList<Entidad> enemigos;
     private Jugador jugador;
     private Tps tps;
@@ -99,9 +100,7 @@ public class Estado {
      * @param fun funcion a ejecutar si no termino la partida
      */
     public void comprobarEstadoPartida(Runnable fun) {
-        if (!finalizada) {
-            terminoPartida();
-        }
+        if (!finalizada) terminoPartida();
 
         if (!finalizada) {
             fun.run();
@@ -140,6 +139,10 @@ public class Estado {
         return nivel;
     }
 
+    /**
+     * Obtiene el estado de la partida
+     * @return Devuelve el booleano de que si termino la partida o no
+     */
     public boolean getEstadoPartida() {
         return finalizada;
     }
