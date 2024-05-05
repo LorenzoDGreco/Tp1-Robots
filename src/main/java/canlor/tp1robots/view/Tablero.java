@@ -73,7 +73,7 @@ public class Tablero {
      * Actualiza visualmente las posiciones de los robots y el jugador en el tablero
      */
     public void actualizarPosiciones() {
-        ArrayList<Entidad> enemigos = modelo.getEnemigos();
+        ArrayList<Entidad> enemigos = new ArrayList<>(modelo.getEnemigos());
 
         for (Entidad entidad : enemigos) {
 

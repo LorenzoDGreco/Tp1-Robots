@@ -13,6 +13,7 @@ public class Estado {
     private final int[] cantRobotsInicial = new int[]{4,2};
     private final int[] dimension;
     private int nivel;
+    private boolean finalizada;
 
     private ArrayList<Entidad> enemigos;
     private Jugador jugador;
@@ -32,6 +33,7 @@ public class Estado {
         dimension = new int[]{filas, columnas};
         nivel = 1;
         this.tps = tps;
+        finalizada = false;
     }
 
     /**
@@ -39,6 +41,7 @@ public class Estado {
      */
     public void reiniciar() {
         nivel = 1;
+        finalizada = false;
         jugador.setTpSeguros(1);
         jugador.resetPuntos();
         iniciar();
@@ -50,6 +53,7 @@ public class Estado {
      */
     public void iniciar() {
         enemigos.clear();
+        finalizada = false;
         tps.setTpSeguro(false);
         jugador.setX(dimension[0] / 2);
         jugador.setY(dimension[1] / 2);
@@ -70,23 +74,23 @@ public class Estado {
      * Comprueba si la partida termino, si el jugador no esta activo (perdio) o si todos los enemigos son instancias de Explosion (gano)
      * @return true si la partida termino, false en caso contrario
      */
-    public boolean terminoPartida() {
+    public void terminoPartida() {
         if (!jugador.isActivo()) {
-            return true;
+            finalizada = true;
+            return;
         }
 
-        boolean gano = true;
+        finalizada = true;
         for (Entidad enemigo : enemigos) {
             if (!(enemigo instanceof Explosion)) {
-                gano = false;
+                finalizada = false;
                 break;
             }
         }
-        if (gano) {
+        if (finalizada) {
             nivel += 1;
             jugador.setTpSeguros(jugador.getTpSeguros() + 1);
         }
-        return gano;
     }
 
     /**
@@ -95,7 +99,11 @@ public class Estado {
      * @param fun funcion a ejecutar si no termino la partida
      */
     public void comprobarEstadoPartida(Runnable fun) {
-        if (!terminoPartida()) {
+        if (!finalizada) {
+            terminoPartida();
+        }
+
+        if (!finalizada) {
             fun.run();
         } else {
             if (jugador.isActivo()){
@@ -130,5 +138,9 @@ public class Estado {
      */
     public int getNivel() {
         return nivel;
+    }
+
+    public boolean getEstadoPartida() {
+        return finalizada;
     }
 }

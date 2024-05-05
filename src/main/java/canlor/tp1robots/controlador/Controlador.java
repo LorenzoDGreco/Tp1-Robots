@@ -3,6 +3,7 @@ package canlor.tp1robots.controlador;
 import canlor.tp1robots.modelo.juego.Juego;
 import canlor.tp1robots.view.RobotsView;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -54,8 +55,19 @@ public class Controlador {
         });
 
         eventos.setEsperar(_ -> {
-            modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
-            vista.actualizar();
+            Task task = new Task() {
+                @Override
+                protected Void call() throws Exception {
+                    while (!modelo.getTerminoPartida()) {
+                        modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
+                        Thread.sleep(300);
+                        Platform.runLater(vista::actualizar);
+                    }
+                    return null;
+                }
+            };
+            Thread thread = new Thread(task);
+            thread.start();
         });
 
         eventos.setReiniciar(_ -> {

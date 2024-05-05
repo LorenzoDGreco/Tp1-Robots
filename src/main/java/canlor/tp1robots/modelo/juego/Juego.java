@@ -175,4 +175,8 @@ public class Juego {
         return jugador.getPuntos();
     }
 
+    public boolean getTerminoPartida() {
+        estado.terminoPartida();
+        return estado.getEstadoPartida();
+    }
 }
