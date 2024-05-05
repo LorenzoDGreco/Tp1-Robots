@@ -18,7 +18,6 @@ public class Controlador {
 
     private final Juego modelo;
     private final RobotsView vista;
-    private Eventos eventos;
 
     /**
      * Constructor para el controlador
@@ -30,70 +29,40 @@ public class Controlador {
         this.vista = vista;
     }
 
-    /**
-     * Inicia el juego
-     * Setea los handlers para los eventos de la vista
-     */
-    public void iniciar() {
-        modelo.iniciar();
+    public void tpAleatorio() {
+        modelo.tpAleatorio();
         vista.actualizar();
+    }
 
-        eventos = new Eventos();
+    public void tpSeguro() {
+        modelo.tpSeguro();
+    }
 
-        eventos.setRedimensionar(_ -> {
-            eventoRedimensionar();
-        });
-
-        eventos.setTpAleatorio(_ -> {
-            modelo.tpAleatorio();
-            vista.actualizar();
-        });
-
-
-        eventos.setTpSeguro(_ -> {
-            modelo.tpSeguro();
-        });
-
-        eventos.setEsperar(_ -> {
-            Task task = new Task() {
-                @Override
-                protected Void call() throws Exception {
-                    while (!modelo.getTerminoPartida()) {
-                        modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
-                        Thread.sleep(300);
-                        Platform.runLater(vista::actualizar);
-                    }
-                    return null;
-                }
-            };
-            Thread thread = new Thread(task);
-            thread.start();
-        });
-
-        eventos.setReiniciar(_ -> {
-            modelo.reiniciar();
-            vista.actualizar();
-        });
-
-        eventos.setMouseClick(this::eventoMouseClick);
-
-        eventos.setTeclado(this::eventoTeclado);
-
-        eventos.setTimer(new TimerTask() {
+    public void esperar() {
+        Task task = new Task() {
             @Override
-            public void run() {
-                modelo.cambiarImagen();
-                Platform.runLater(vista::actualizarAnimaciones);
+            protected Void call() throws Exception {
+                while (!modelo.getTerminoPartida()) {
+                    modelo.mover(modelo.getJugadorX(), modelo.getJugadorY());
+                    Thread.sleep(300);
+                    Platform.runLater(vista::actualizar);
+                }
+                return null;
             }
-        });
+        };
+        Thread thread = new Thread(task);
+        thread.start();
+    }
 
-        vista.crearEventos(eventos);
+    public void reiniciar() {
+        modelo.reiniciar();
+        vista.actualizar();
     }
 
     /**
      * Maneja evento de redimensionar el tablero
      */
-    public void eventoRedimensionar() {
+    public void redimensionar() {
         String[] espacio = vista.getRedimensiones();
         try {
             int valor1 = Integer.parseInt(espacio[0]);
@@ -115,7 +84,7 @@ public class Controlador {
      * Maneja evento de click del mouse
      * @param e MouseEvent de click del mouse
      */
-    private void eventoMouseClick(MouseEvent e) {
+    public void mouseClick(MouseEvent e) {
         int columna = (int) (e.getX() / 16);
         int fila = (int) (e.getY() / 16);
 
@@ -127,7 +96,7 @@ public class Controlador {
      * Maneja evento de teclado
      * @param event KeyEvent de teclado
      */
-    private void eventoTeclado(KeyEvent event) {
+    public void teclado(KeyEvent event) {
         KeyCode key = event.getCode();
         switch (key) {
             case W:
@@ -162,6 +131,16 @@ public class Controlador {
                 break;
         }
         vista.actualizar();
+    }
+
+    public TimerTask timer() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                modelo.cambiarImagen();
+                Platform.runLater(vista::actualizarAnimaciones);
+            }
+        };
     }
 }
 

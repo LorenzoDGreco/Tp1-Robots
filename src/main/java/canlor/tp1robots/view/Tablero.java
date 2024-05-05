@@ -1,6 +1,6 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.controlador.Controlador;
 import canlor.tp1robots.modelo.entidades.Entidad;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.image.Image;
@@ -31,16 +31,19 @@ public class Tablero {
 
     /**
      * Constructor del tablero. Inicializa el tablero con las dimensiones dadas
-     * @param x cantidad de filas del tablero
-     * @param y cantidad de columnas del tablero
-     * @param modelo modelo del juego que se esta jugando
+     *
+     * @param x           cantidad de filas del tablero
+     * @param y           cantidad de columnas del tablero
+     * @param modelo      modelo del juego que se esta jugando
+     * @param controlador
      */
-    public Tablero(int x, int y, Juego modelo) {
+    public Tablero(int x, int y, Juego modelo, Controlador controlador) {
         gp = new GridPane();
         this.modelo = modelo;
         dimension = new int[]{x, y};
 
         inicializarTablero();
+        gp.setOnMouseClicked(controlador::mouseClick);
     }
 
     /**
@@ -115,14 +118,6 @@ public class Tablero {
         gp.getChildren().clear();
         inicializarTablero();
         actualizarPosiciones();
-    }
-
-    /**
-     * Crea el evento de click en el tablero
-     * @param eventos eventos que se van a crear
-     */
-    public void crearEvento(Eventos eventos) {
-        gp.setOnMouseClicked(eventos.getMouseClick());
     }
 
     /**

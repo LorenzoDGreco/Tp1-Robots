@@ -1,6 +1,6 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.controlador.Controlador;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -22,9 +22,8 @@ public class MenuOpciones {
     private final int[] COLOR_MENU = new int[]{245,243,243};
 
     private final Juego modelo;
+    private final Controlador controlador;
     private final MenuBar menuBar;
-    private final MenuItem restart;
-    private final Button aceptar;
     private Menu nivel;
     private Menu puntos;
     private TextField filas;
@@ -34,15 +33,18 @@ public class MenuOpciones {
 
     /**
      * Constructor para MenuOpciones, ademas muestra el nivel actual en la barra de menu
-     * @param modelo modelo del juego que se esta jugando
+     *
+     * @param modelo      modelo del juego que se esta jugando
+     * @param controlador
      */
-    public MenuOpciones(Juego modelo) {
+    public MenuOpciones(Juego modelo, Controlador controlador) {
         this.modelo = modelo;
+        this.controlador = controlador;
         menuBar = new MenuBar();
         menuBar.setUseSystemMenuBar(true);
         menuBar.setBackground(Background.fill(Color.rgb(COLOR_MENU[0], COLOR_MENU[1], COLOR_MENU[2])));
-        aceptar = new Button("Aceptar");
-        restart = new MenuItem("Reinciar");
+
+
 
         Menu menu = createMenu();
         menuBar.getMenus().add(menu);
@@ -96,6 +98,9 @@ public class MenuOpciones {
             Button cancelar = new Button("Cancelar");
             cancelar.setOnAction(_ -> cerrarVentana());
 
+            Button aceptar = new Button("Aceptar");
+            aceptar.setOnAction(_ -> controlador.redimensionar());
+
             botones.getChildren().addAll(cancelar, aceptar);
             botones.setAlignment(Pos.CENTER);
             botones.setSpacing(8);
@@ -108,21 +113,15 @@ public class MenuOpciones {
             stage.show();
         });
 
+        MenuItem restart = new MenuItem("Reinciar");
+        restart.setOnAction(_ -> controlador.reiniciar());
+
         MenuItem salirItem = new MenuItem("Salir");
         salirItem.setOnAction(_ -> Platform.exit());
 
         menu.getItems().addAll(restart, dimensionItem, salirItem);
 
         return menu;
-    }
-
-    /**
-     * Crea eventos para el menu de opciones
-     * @param eventos eventos que se van a crear
-     */
-    public void crearEvento(Eventos eventos) {
-        aceptar.setOnAction(eventos.getRedimensionar());
-        restart.setOnAction(eventos.getReiniciar());
     }
 
     /**

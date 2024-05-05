@@ -1,12 +1,11 @@
 package canlor.tp1robots.view;
 
-import canlor.tp1robots.controlador.Eventos;
+import canlor.tp1robots.controlador.Controlador;
 import canlor.tp1robots.modelo.juego.Juego;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Timer;
 
 /**
@@ -14,15 +13,19 @@ import java.util.Timer;
  * Contiene metodos para crear la vista, redimensionarla, actualizarla y crear eventos
  */
 public class RobotsView {
-    private final VBox root;
-    private final MenuOpciones menuOpciones;
-    private final Tablero tablero;
-    private final Botones botones;
-    private final Scene scene;
+    private final int filas;
+    private final int columnas;
+
+    private VBox root;
+    private MenuOpciones menuOpciones;
+    private Tablero tablero;
+    private Botones botones;
+    private Scene scene;
     private final Stage stage;
 
     private final Juego modelo;
-    private final Timer timer;
+    private Controlador controlador;
+    private Timer timer;
 
     /**
      * Constructor de la vista principal del juego Robots
@@ -34,25 +37,37 @@ public class RobotsView {
     public RobotsView(Stage stage, Juego modelo, int filas, int columnas) {
         this.stage = stage;
         this.modelo = modelo;
-        timer = new Timer();
+        this.filas = filas;
+        this.columnas = columnas;
+    }
+
+    public void iniciar() {
         stage.setTitle("Robots");
 
         root = new VBox();
 
-        menuOpciones = new MenuOpciones(modelo);
+        menuOpciones = new MenuOpciones(modelo, controlador);
         root.getChildren().add(menuOpciones.getMenuBar());
 
-        tablero = new Tablero(filas, columnas, modelo);
+        tablero = new Tablero(filas, columnas, modelo, controlador);
         root.getChildren().add(tablero.getTablero());
 
-        botones = new Botones(modelo);
+        botones = new Botones(modelo, controlador);
         root.getChildren().add(botones.getBotones());
 
         scene = new Scene(root, 720, 625);
+        scene.setOnKeyReleased(controlador::teclado);
 
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(controlador.timer(),0,200);
+    }
+
+    public void getControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 
     /**
@@ -83,18 +98,6 @@ public class RobotsView {
      */
     public void actualizarAnimaciones() {
         tablero.reiniciar();
-    }
-
-    /**
-     * Crea eventos para la vista del juego: teclado, botones, tablero y menu de opciones
-     * @param eventos eventos que se van a crear
-     */
-    public void crearEventos(Eventos eventos) {
-        timer.scheduleAtFixedRate(eventos.getTimer(),0,200);
-        scene.setOnKeyReleased(eventos.getTeclado());
-        menuOpciones.crearEvento(eventos);
-        botones.crearEvento(eventos);
-        tablero.crearEvento(eventos);
     }
 
     /**

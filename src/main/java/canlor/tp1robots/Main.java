@@ -22,7 +22,12 @@ public class Main extends Application {
         Juego modelo = new Juego(FILAS, COLUMNAS);
         vista = new RobotsView(stage, modelo, FILAS, COLUMNAS);
         Controlador controlador = new Controlador(modelo, vista);
-        controlador.iniciar();
+
+        vista.getControlador(controlador);
+
+        modelo.iniciar();
+        vista.iniciar();
+        vista.actualizar();
     }
 
     /**
