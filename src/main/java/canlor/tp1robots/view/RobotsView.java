@@ -72,7 +72,6 @@ public class RobotsView {
      * Actualiza la vista del juego
      */
     public void actualizar() {
-        System.out.println("ENTRE A LA VISTA");
         tablero.reiniciar();
         botones.actualizarBoton();
         menuOpciones.setNivelLabel();
